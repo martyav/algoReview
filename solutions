@@ -1027,21 +1027,23 @@ listLength(startingAt: only)
 
 func pairSums(_ arr: [Int], _ sum: Int) -> [[Int]] {
     var pairs: [[Int]] = []
-    var addUpToSum: [Int] = []
+    var addUpToSum: [Int: Int] = [:]
     
     for numBeingChecked in arr {
         let itsPair = sum - numBeingChecked
-        addUpToSum.append(itsPair)
-        if arr.contains(itsPair) && !addUpToSum.contains(numBeingChecked) {
+
+        if addUpToSum[numBeingChecked] == itsPair {
             let pairFound = [numBeingChecked, itsPair]
-                    pairs.append(pairFound)
+            pairs.append(pairFound)
+        } else {
+            addUpToSum[itsPair] = numBeingChecked
         }
     }
     
     return pairs
 }
 
-pairSums([-3, 4, 2, 1, 6, -1], 3)
+pairSums([1,1], 2)
 
 /*
  swift trace
