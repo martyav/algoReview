@@ -1091,11 +1091,15 @@ func checkMy(braces: String) -> Bool {
     if braces.isEmpty { return false }
     
     let bracesArr = Array(braces.characters)
+    var countParentheses = 0
+    var countCurlyBraces = 0
+    var countSquareBraces = 0
     
     for index in 0..<bracesArr.count {
         guard bracesArr.count >= index + 1 else { return false }
         switch bracesArr[index] {
-            case "(":
+        case "(":
+            countParentheses += 1
             if bracesArr[index + 1] == ")" {
                 continue
             } else {
@@ -1105,30 +1109,36 @@ func checkMy(braces: String) -> Bool {
                     return false
                 }
             }
-            case "[":
-                if bracesArr[index + 1] == "]" {
-                    continue
-                } else {
-                    if bracesArr[index..<bracesArr.count].contains("]") {
-                        continue
-                    } else {
-                        return false
-                    }
-            }
-            case "{":
-                if bracesArr[index + 1] == "}" {
-                    continue
-                } else {
-                    if bracesArr[index..<bracesArr.count].contains("}") {
-                        continue
-                    } else {
-                        return false
-                    }
-            }
-        case ")":
-            if bracesArr[index + 1] == "(" {
+        case "[":
+            countSquareBraces += 1
+            if bracesArr[index + 1] == "]" {
                 continue
             } else {
+                if bracesArr[index..<bracesArr.count].contains("]") {
+                    continue
+                } else {
+                    return false
+                }
+            }
+        case "{":
+            countCurlyBraces += 1
+            if bracesArr[index + 1] == "}" {
+                continue
+            } else {
+                if bracesArr[index..<bracesArr.count].contains("}") {
+                    continue
+                } else {
+                    return false
+                }
+            }
+        case ")":
+            countParentheses += 1
+            
+            if bracesArr[index - 1] == "(" {
+                continue
+            } else {
+                if countParentheses % 2 != 0 { return false }
+                
                 if bracesArr[0..<index].contains("(") {
                     continue
                 } else {
@@ -1136,9 +1146,13 @@ func checkMy(braces: String) -> Bool {
                 }
             }
         case "]":
-            if bracesArr[index + 1] == "[" {
+            countSquareBraces += 1
+            
+            if bracesArr[index - 1] == "[" {
                 continue
             } else {
+                if countSquareBraces % 2 != 0 { return false }
+                
                 if bracesArr[0..<index].contains("[") {
                     continue
                 } else {
@@ -1146,9 +1160,13 @@ func checkMy(braces: String) -> Bool {
                 }
             }
         case "}":
-            if bracesArr[index + 1] == "{" {
+            countCurlyBraces += 1
+            
+            if bracesArr[index - 1] == "{" {
                 continue
             } else {
+                if countCurlyBraces % 2 != 0 { return false }
+                
                 if bracesArr[0..<index].contains("{") {
                     continue
                 } else {
@@ -1163,4 +1181,4 @@ func checkMy(braces: String) -> Bool {
     return true
 }
 
-checkMy(braces: "([}])")
+checkMy(braces: "([({)])")
