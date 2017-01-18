@@ -1,0 +1,1044 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+/*
+ Examples of different kinds of runtime
+ */
+
+// linear time below
+
+func printAllArrItems(_ arr:[Int]) {
+    for item in arr {
+        print(item)
+    }
+}
+
+// constant time below
+
+func printOneArrItem(_ arr:[Int], index: Int) {
+    print(arr[index])
+}
+
+// quadratic time below
+
+func printDeck(suits: [Character], nums: [String]) {
+    for suit in suits {
+        for num in nums {
+            print("The \(num) of \(suit)s.")
+        }
+    }
+}
+
+// cubic time below
+
+func printPokemonDeets(names: [String], nums: [Int], regions: [String]) {
+    for region in regions {
+        for num in nums {
+            for name in names {
+                print(region, num, name)
+            }
+        }
+    }
+}
+
+// linearithmic?
+
+func orderPokemonByName(box: [String]) {
+    let sortedPokemon = box.sorted(by: <)
+    print(sortedPokemon)
+}
+
+/* 
+ Next problem...diagonal difference!
+ */
+
+func calcDiag(_ matrix: [[Int]]) -> Int {
+    var diff = 0
+    var sumLeftToRight = 0
+    var sumRightToLeft = 0
+
+    for index in 0..<matrix.count {
+        sumLeftToRight += matrix[index][index]
+        sumRightToLeft += matrix[index][(matrix.count - 1) - index]
+    }
+
+    diff = sumRightToLeft - sumLeftToRight
+
+    if diff >= 0 {
+        return diff
+    } else {
+        return diff * -1
+    }
+}
+
+var arr = [[1,2,3,4], [5,6,7,9], [10,11,12,13], [14,15,16,17]]
+
+print(calcDiag(arr))
+
+/*
+ Does a number in an array have the same number on the left as on the right?
+ */
+
+func surroundedByEquals(_ arr: [Int]) -> Int? {
+    var foundIndex: Int?
+
+    for index in 1..<arr.count - 1 {
+        if arr[index - 1] == arr[index + 1] {
+            foundIndex = index
+            continue
+        }
+    }
+    return foundIndex
+}
+
+surroundedByEquals([3,1,3])
+
+
+//Extend an array to implement your own filter() method. Bonus: extend an array to implement your own reduce() method.
+
+extension Array {
+    func myFilter<T>(_ closure: (T) -> Bool) -> [T] {
+        var newArr = [T]()
+
+        for item in self {
+            let castAsT = item as! T
+            if closure(castAsT) {
+                newArr.append(castAsT)
+            }
+        }
+        
+        return newArr
+    }
+
+//    func myReduce<T>(_ closure: (T,T) -> T) -> T {
+//        var total: T
+//
+//        for item in self {
+//            let castAsT = item as! T
+//            
+//        }
+//    }
+}
+
+var input1 = [1,3,6,7]
+var input2 = [2,4,5,9,10]
+//Sample output: [1,2,3,4,5,6,7,9,10]
+
+//Given two sorted arrays, write a function that returns a single sorted array with all of the elements of the two input arrays. Your solution should work in O(n) time.
+
+func joinUp(_ arr1: [Int], _ arr2: [Int]) -> [Int] {
+    var finalArr = [Int]()
+    var temp: Int = 0
+    var tempMergedArr = [Int]()
+
+    for el in arr1 {
+        tempMergedArr.append(el)
+    }
+    for el in arr2 {
+        tempMergedArr.append(el)
+    }
+
+    for indexOfElement1 in 0..<tempMergedArr.count {
+        if indexOfElement1 == 0 {
+            finalArr.append(tempMergedArr[0])
+            temp = finalArr[indexOfElement1]
+        } else {
+            if tempMergedArr[indexOfElement1] > temp {
+                finalArr.append(tempMergedArr[indexOfElement1])
+            } else {
+                finalArr.append(temp)
+                temp = finalArr[indexOfElement1]
+            }
+        }
+    }
+
+    return finalArr
+}
+
+print(joinUp(input1, input2))
+
+/*
+ struct user {
+ var name: String
+ var userID: Int
+ }
+ 
+ www.questionOne.com/userName=Dave&userID=31&userFound=true
+ 
+ www.questionOne.com/userName=Aliya&userID=319&userFound=true
+ 
+ www.questionOne.com/userName=Jonathan&userID=4829&userFound=true
+ */
+
+struct User {
+    var name: String
+    var userID: Int
+
+    let theStartOfOurBaseURL: String = "www.questionOne.com/userName"
+    let theMiddleOfOurBaseURL: String = "&userID="
+    let theEndOfOurBaseURL: String = "&userFound=true"
+
+    init(name: String, userID: Int) {
+        self.name = name
+        self.userID = userID
+    }
+
+    func displayProfile() -> URL {
+        return URL(fileURLWithPath: theStartOfOurBaseURL + name + theMiddleOfOurBaseURL + String(userID) + theEndOfOurBaseURL)
+    }
+}
+
+func constructUser(userURL: String) -> User {
+    let decomposedURL = userURL.components(separatedBy: "=")
+
+    let name = decomposedURL[1].components(separatedBy: "&")[0]
+    let userID = decomposedURL[2].components(separatedBy: "&")[0]
+
+    return User(name: name, userID: Int(userID)!)
+}
+
+var Jon = constructUser(userURL:"www.questionOne.com/userName=Jonathan&userID=4829&userFound=true")
+print("")
+print(Jon.displayProfile())
+print("")
+
+var decomposed = "www.questionOne.com/userName=Dave&userID=31&userFound=true".components(separatedBy: "=")
+print(decomposed)
+let name = decomposed[1].components(separatedBy: "&")[0]
+let userID = decomposed[2].components(separatedBy: "&")[0]
+
+let input = [5,3,4,-2,-7]
+let output = (2, -105, -9)
+
+//Given an array of Ints as input, write a function that returns a Tuple, where the first value is the sum of the even numbers, the second value is the product of the odd numbers, and the third number is the sum of the negative numbers. *
+
+func processArr(_ arr: [Int]) -> (Int, Int, Int) {
+    var sumOfEvens = 0
+    var productOfOdds = 1
+    var sumOfNegs = 0
+
+    for num in arr {
+        if num < 0 {
+            sumOfNegs += num
+        }
+
+        if num % 2 == 0 {
+            sumOfEvens += num
+        } else {
+            productOfOdds *= num
+        }
+    }
+
+    return (sumOfEvens,productOfOdds,sumOfNegs)
+}
+
+print(processArr(input))
+print(output)
+
+/*
+ Given nums = [2, 11, 7, 15],  target = 9
+ Sample Output: (0, 2)
+ 
+ Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution.
+ */
+
+let nums = [2, 11, 7, 15]
+let target = 9
+
+func findTheTargetSum(_ arr: [Int], target: Int) -> (Int?,Int?) {
+    var addend1:Int?
+    var addend2: Int?
+
+    for indexOfNum1 in 0..<arr.count {
+        for indexOfNum2 in 0..<arr.count {
+            if arr[indexOfNum1] + arr[indexOfNum2] == target {
+                addend1 = indexOfNum1
+                addend2 = indexOfNum2
+            }
+        }
+    }
+
+    return (addend1, addend2)
+}
+
+findTheTargetSum(nums, target: 9)
+
+func findTheTargetSumAlternate(_ arr: [Int], target: Int) -> (Int?,Int?) {
+    var addend1:Int?
+    var addend2: Int?
+    var diff: Int
+    var checkerArr = [Int]()
+
+    for indexOfNum1 in 0..<arr.count {
+        if target > arr[indexOfNum1] {
+            diff = target - arr[indexOfNum1]
+        } else {
+            diff = arr[indexOfNum1] - target
+        }
+        checkerArr.append(diff)
+    }
+
+    for findingTheMatch in 0..<arr.count {
+        var counter = 0
+        if arr[findingTheMatch + counter] + checkerArr[(arr.count - 1) - findingTheMatch] == target {
+            print(checkerArr[(arr.count - 1) - findingTheMatch])
+            addend1 = findingTheMatch + counter
+            addend2 = (arr.count - 1) - findingTheMatch
+            break
+        } else {
+            counter += 1
+            continue
+        }
+    }
+
+    return (addend1, addend2)
+}
+
+findTheTargetSumAlternate(nums, target: 18)
+
+struct Person {
+    var clothes: String {
+        willSet {
+            updateUI(msg: "I'm changing from \(clothes) to \(newValue)")
+        }
+
+        didSet {
+            updateUI(msg: "I just changed from \(oldValue) to \(clothes)")
+        }
+    }
+}
+
+func updateUI(msg: String) {
+    print(msg)
+}
+
+var taylor = Person(clothes: "T-shirts")
+taylor.clothes = "short skirts"
+
+
+//Given an array of integers, return all the positive numbers that have their opposites in the array.
+
+let barr: [Int] = [1,2,5,-5,0,-6,-5,9,10,-1,4,5,0,5,5,-1,1]
+
+func findOpposite(_ arr: [Int]) -> [Int] {
+    var ourOpposites:[Int] = []
+
+    guard arr.count > 1 else { return ourOpposites }
+
+    for checkMe in arr where checkMe > 0 {
+        for checkAgainst in arr where checkAgainst < 0{
+            if checkMe * -1 == checkAgainst {
+                guard !ourOpposites.contains(checkMe) else { break }
+                ourOpposites.append(checkMe)
+            }
+        }
+    }
+
+    return ourOpposites
+}
+
+findOpposite(barr)
+
+// Chris's code -- linear time (https://github.com/cristopherchavezny)
+
+func numWhosOppositeIsInThe(arr: [Int]) -> Set<Int> {
+    var answer = Set<Int>()
+    for num in arr {
+        if arr.contains(-num), num > 0, !answer.contains(num) {
+            answer.insert(num)
+        }
+    }
+    return answer
+}
+
+numWhosOppositeIsInThe(arr: barr)
+
+func noDuplicates(_ arr: [Int]) -> [Int] {
+    var container = [Int]()
+    for item in arr {
+        guard !container.contains(item) else {continue}
+        container.append(item)
+    }
+    
+    return container
+}
+
+var winput = [4,3,3,2,3,2,5,4,4]
+var woutput = [4,3,2,5]
+
+noDuplicates(winput)
+
+//return only the elements shared by two arrays
+
+func sharedElements(arr1: [Int], arr2: [Int]) -> [Int] {
+    let set1 = Set(arr1)
+    let set2 = Set(arr2)
+
+    return Array(set1.intersection(set2))
+}
+
+func sharedElements2(arr1: [Int], arr2: [Int]) -> [Int] {
+    var shared = [Int]()
+
+    for index in 0..<arr1.count {
+        for jindex in 0..<arr2.count {
+            guard arr1[index] == arr2[jindex] else { continue }
+            shared.append(arr1[index])
+        }
+    }
+
+    shared = noDuplicates(shared)
+
+    return shared
+}
+
+let carr1 = [1,443,43,4,3,42,3,4,234,1,31,3,12,31,3,12,31,23,9]
+let carr2 = [123123,12,31,3,123,12,3,12,3,234,32,41,23,1,4,456,34,4,124,1,4]
+
+print(sharedElements2(arr1: carr1, arr2: carr2))
+print(sharedElements(arr1: carr1, arr2: carr2))
+
+
+func countUp(_ target: Int, startingAt: Int) {
+    print(startingAt)
+    
+    if startingAt == target { return }
+    else { return countUp(target, startingAt: startingAt + 1) }
+}
+
+var one = 1
+
+countUp(10, startingAt: one)
+
+// find anagrams, ignoring punctuation, cases, and spacing
+
+func findAnagram(one: String, two: String) -> Bool {
+    let text1 = one.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines.union(CharacterSet.punctuationCharacters)).lowercased()
+    let text2 = two.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines.union(CharacterSet.punctuationCharacters)).lowercased()
+
+    var textArr1 = [Character]()
+    var textArr2 = [Character]()
+
+    for letter in text1.characters {
+        textArr1.append(letter)
+    }
+
+    for letter in text2.characters {
+        textArr2.append(letter)
+    }
+
+    return textArr2.sorted() == textArr1.sorted()
+}
+findAnagram(one: "catp", two: "act!")
+
+
+var darr = [1,3,3,434,34,3,42,3]
+
+func recursivelyPrintElements(in arr: [Int], index: Int = 0) {
+    guard index != (arr.count - 1) else { return }
+    
+    print(arr[index])
+    
+    return recursivelyPrintElements(in: arr, index: index + 1)
+}
+
+/*
+Input = "The quick brown fox jumps over the lazy dog."
+Output = True
+
+Input = "How vexingly quick daft zebras jump!"
+
+Output = True
+
+Input = "Some other sentence without all the letters."
+
+Output = False
+
+A pangram is a sentence that uses every letter of the alphabet at least once. A famous pangram is "The quick brown fox jumps over the lazy dog." Given a String, return whether or not it is a pangram. Ignore capitalization and punctuation.
+*/
+
+func isPangram(_ text: String) -> Bool {
+    let alphabet: Set<Character> = Set("abcdefghijklmnopqrstuvwxyz ".characters)
+    var cleanText = text.trimmingCharacters(in: CharacterSet.punctuationCharacters).lowercased()
+    
+    print(cleanText)
+    
+    let checker: Set<Character> = Set(cleanText.characters)
+    
+    print(checker.sorted())
+    print(alphabet)
+    
+    return checker == alphabet
+}
+
+isPangram("The quick brown fox jumps over the lazy dog.")
+
+/*
+ Input = "Racecar"
+ Output = True
+ 
+ Input = "Madam"
+ 
+ Output = True
+ 
+ Input = "Apple"
+ 
+ Output = False
+ 
+ Bonus Input: "No lava on Avalon.  No lava?  No avalon."
+ 
+ Bonus Output: True
+ 
+ A palindrome is a word that is the same backwards and forwards. Write a function that determines if a given String is a palindrome. Then write a function that does it recursively. Then do it with a full sentence as input ignoring spaces and punctuation.
+ */
+
+func isPalindrome(_ text: String, index: Int = 0) -> Bool {
+    let textArr = Array(text.lowercased().characters)
+    guard index < textArr.count - 1 - index else { return true }
+
+    if textArr[index] == textArr[(textArr.count - 1) - index] {
+        let newIndex = index + 1
+        return isPalindrome(text, index: newIndex)
+    } else {
+        return false
+    }
+}
+
+
+var string = "racfwerffrfergweg4wtg4h5gtrbh54h3wb5b4wg35yt53twefqcar"
+var gnirts = "racecar"
+
+isPalindrome(string)
+isPalindrome(gnirts)
+
+/*
+ Input = 412
+ Output = 7
+ 
+ Input = 1480
+ 
+ Output = 13
+ 
+ Input = 1023
+ 
+ Output = 6
+ 
+ Given an Int as input, return the sum of its digits. Then do it recursively.
+ */
+
+func numerology(_ num: Int) -> Int {
+    var sum = 0
+    let numArr = Array(String(num).characters)
+
+    for digit in numArr {
+        sum += Int(String(digit))!
+    }
+
+    return sum
+}
+
+numerology(123)
+
+var sum = 0
+
+func recursiveNumerology(_ num: Int) -> Int {
+    var numArr = Array(String(num).characters)
+    let newNum: Int
+
+    sum += Int(String(describing: numArr[numArr.count - 1]))!
+    numArr.removeLast()
+
+    // base case
+    guard numArr.count != 0 else { return sum }
+
+    newNum = Int(String(numArr))!
+    return recursiveNumerology(newNum)
+}
+
+recursiveNumerology(402)
+
+/*
+ Input: "Hello, there"
+ Output: "HeLlO, tHeRe"
+ 
+ Input: "TESTING"
+ 
+ Output: "TeStInG"
+ 
+ Input: "Here. Have another String as a sample!"
+ 
+ Output: "HeRe. HaVe aNoThEr sTrInG As a sAmPlE!"
+ 
+ Write a function that takes a String as input, and returns a String with every other character capitalized.
+ */
+
+func gamzee(_ text: String) -> String {
+    var gamzeefied: String = ""
+
+    let textArr = Array(text.uppercased().characters)
+
+    for index in 0..<textArr.count {
+        if index % 2 != 0 {
+            gamzeefied = gamzeefied + String(textArr[index]).lowercased()
+        } else {
+            gamzeefied = gamzeefied + String(textArr[index])
+        }
+    }
+
+    return gamzeefied
+}
+
+gamzee("shbcfhjcbjh7werf")
+
+func recursiveGamzee(_ text: String, gamzeefied: String = "", numOfCycles: Int = 0) -> String {
+    guard text != "" else { return gamzeefied }
+
+    var internalGamzeefied = gamzeefied
+    var textArr = Array(text.characters)
+    var internalText = ""
+
+    if numOfCycles % 2 != 0 {
+        internalGamzeefied = gamzeefied + String(textArr[0]).lowercased()
+    } else {
+        internalGamzeefied = gamzeefied + String(textArr[0]).uppercased()
+    }
+
+    textArr.removeFirst()
+    print(textArr)
+
+    for char in textArr {
+        internalText += String(char)
+    }
+
+    return recursiveGamzee(internalText, gamzeefied: internalGamzeefied, numOfCycles: numOfCycles + 1)
+}
+
+recursiveGamzee("Hello, world!")
+
+class Book {
+    var title: String
+    var author: String
+    init(title: String, author: String) {
+        self.title = title
+        self.author = author
+    }
+}
+
+var sampleInput = [ ["title" : "The name of the Wind", "author": "Patrick Rothfuss"] , ["title": "Ubik", "author": "Philip K. Dick"] ]
+
+/*
+ Write a function that takes an Array of Dictionaries and a closure as input, and returns Void.  The closure should take an Array of Books as input and return Void.
+ 
+ Your function should convert the Array of Dictionaries into an Array of Books, then call your closure passing in your Array of Books.
+ 
+ After you have completed writing your function, you should call your function passing in sampleInput, and a closure that prints out all of the titles in an Array of Books.
+ */
+
+func convertDictionaries(groupOfDictionaries: [[String:String]], printTitles: (_ groupOfBooks: [Book]) -> Void ) -> Void {
+    var convertedToBooks: [Book] = []
+    
+    for item in groupOfDictionaries {
+        if let title = item["title"],
+            let author = item["author"] {
+            let newBook = Book(title: title, author: author)
+            convertedToBooks.append(newBook)
+        } else { continue }
+    }
+    
+    printTitles(convertedToBooks)
+}
+
+let printTitles = { (arrOfBooks: [Book]) in
+    for item in arrOfBooks {
+        print(item.title)
+    }
+}
+
+convertDictionaries(groupOfDictionaries: sampleInput, printTitles: printTitles)
+
+/*
+ Sample input:
+ let arrayOne = ["Amber", "Ana", "Annie", "Cristopher"]
+ let arrayTwo = ["Spadafora", "Ma", "Tung", "Chavez"]
+ 
+ class Student {
+ let firstName: String
+ let lastName: String
+ init(first: String, last: String) {
+ self.firstName = first
+ self.lastName = last
+ }
+ }
+ 
+ Write a function that takes two Arrays of Strings as input, and returns a dictionary mapping the value at each index of the first Array to the value at each corresponding index of the second Array.  Assume the arrays are both of size n.
+ 
+ Then write a function that takes a dictionary as input and returns an Array of Student objects.
+ */
+
+
+let arrayOne = ["Amber", "Ana", "Annie", "Cristopher"]
+let arrayTwo = ["Spadafora", "Ma", "Tung", "Chavez"]
+
+class Student {
+    let firstName: String
+    let lastName: String
+    init(first: String, last: String) {
+        self.firstName = first
+        self.lastName = last
+    }
+}
+
+func makeDictFrom(arr1: [String], arr2: [String]) -> [String:String] {
+    let n = arr1.count
+    var ourDict: [String:String] = [:]
+
+    for index in 0..<n {
+        ourDict[arr1[index]] = arr2[index]
+    }
+
+    return ourDict
+}
+
+var studentArr = makeDictFrom(arr1: arrayOne, arr2: arrayTwo)
+
+func makeStudentFrom(dict: [String:String]) -> [Student] {
+    var students = [Student]()
+
+    for (k,v) in dict {
+        let firstName = k
+        let lastName = v
+        let currentstudent = Student(first: firstName, last: lastName)
+        students.append(currentstudent)
+    }
+    return students
+}
+
+makeStudentFrom(dict: studentArr)
+
+func anyNumCipher(_ text: String, shiftBy: Int) -> String {
+    var enciphered = ""
+    let alphabet = Array("abcdefghijklmnopqrstuvwxyz".characters)
+    let textArr = Array(text.lowercased().characters)
+
+    for letter in textArr {
+        let index = alphabet.index(of: letter)
+        if index != nil {
+            let newLetter = String(alphabet[(index! + shiftBy) % 26])
+            enciphered += newLetter
+        } else {
+            enciphered += String(letter)
+        }
+    }
+
+    return enciphered
+}
+
+anyNumCipher("abc defg", shiftBy: 3)
+
+//func recursivelyCipher(_ text: String, num: Int, currentPosition: Int = 0) {
+//    if text == "" { return }
+//
+//    let alphabet = Array("abcdefghijklmnopqrstuvwxyz".characters)
+//    let textArr = Array(text.lowercased().characters)
+//}
+
+/*
+ Given an array of n integers where n > 1, return an array of the same size as the input array, where the value at every index of the output array is the product of all elements in the array except the element at the given index.
+ 
+ */
+ 
+let quinput = [10, 4, 1, 6, 2]
+let quoutput = [48,120,480,80,240]
+
+func products(arr:[Int]) -> [Int] {
+    var newArr: [Int] = []
+ 
+    for index in 0..<arr.count {
+        var product = 1
+            for jindex in 0..<arr.count where jindex != index {
+                product *= arr[jindex]
+        }
+        newArr.append(product)
+    }
+ 
+    return newArr
+}
+ 
+let test = products(arr: input)
+
+/*
+ You are given an input array, an array of tuples of elements to swap, and a closure mapping two inputs to a Bool.  Make all swaps in order, then return a tuple containing the swapped array and whether or not it is sorted according to the input condition.
+ Sample input:
+ [1,6,2,9,3], [(1,2), (2,4), (3,4)], {(a, b) -> Bool in return a < b}
+ 
+ Sample output:
+ [1,2,3,6,9], true
+ */
+
+func makeThisIntoThat(arr: [Int], swaps: [(Int, Int)], closure: ((Int, Int)) -> Bool) -> [Int] {
+    var newArr: [Int] = arr
+ 
+    for index in 0..<swaps.count {
+        newArr[swaps[index].1] = newArr[swaps[index].0]
+    }
+ 
+    return newArr
+}
+
+
+func findDisappearedNumbers(_ nums: [Int]) -> Set<Int> {
+    var checkerSet: Set<Int> = []
+
+    for i in 1...nums.count {
+        checkerSet.insert(i)
+        print(checkerSet)
+    }
+
+    for j in nums {
+        print(checkerSet.contains(j))
+        if checkerSet.contains(j) {
+            checkerSet.remove(j)
+        }
+    }
+    return checkerSet
+}
+
+findDisappearedNumbers([4,3,2,7,8,2,3,1])
+
+func addDigits(_ num: Int) -> Int {
+    var sum = 0
+    var numAsString = String(num)
+    let numArr = Array(numAsString.characters)
+    
+    for number in numArr {
+        sum += Int(String(number))!
+    }
+    
+    if sum >= 10 {
+        return addDigits(sum)
+    } else { return sum }
+}
+
+addDigits(19)
+
+class Dog {
+    var age: Int
+    var name: String
+    var breed: String
+    
+    init (age: Int, name: String, breed: String) {
+        self.age = age
+        self.name = name
+        self.breed = breed
+    }
+}
+
+let dogOne = Dog(age: 4, name: "Scooby", breed: "Great Dane")
+let dogTwo = Dog(age: 1, name: "Scrappy", breed: "Great Dane")
+let dogThree = Dog(age: 6, name: "Snoopy", breed: "Beagle")
+let dogFour = Dog(age: 5, name: "Odie", breed: "Beagle")
+let dogFive = Dog(age: 3, name: "Poochie", breed: "Beagle")
+
+let earr = [dogOne, dogTwo, dogThree, dogFour, dogFive]
+
+func findOneExample(arr: [Dog]) -> [String] {
+    var uniques: [String] = []
+
+    var listOfBreedsSoFar: [String] = []
+
+    for dog in arr {
+        if listOfBreedsSoFar.contains(dog.breed) {
+                continue
+        } else {
+            uniques.append(dog.name)
+            listOfBreedsSoFar.append(dog.breed)
+        }
+    }
+
+    return uniques
+}
+
+print(findOneExample(arr: earr))
+
+class Node<T> {
+    var key: T!
+    var next: Node?
+}
+
+class LinkedList<T: Equatable> {
+    var head  = Node<T>()
+}
+
+func sameHeadAndTail<T: Equatable>(list: LinkedList<T>) -> Bool {
+    let checkMe = list.head
+    var current = checkMe
+
+    guard checkMe.next != nil else { return true }
+
+    while current.next != nil {
+        current = current.next!
+    }
+
+    return checkMe.key == current.key
+}
+
+var myList2 = LinkedList<String>()
+myList2.head.key = "3"
+myList2.head.next = Node()
+myList2.head.next?.key = "20"
+myList2.head.next?.next = Node()
+myList2.head.next?.next?.key = "3"
+
+sameHeadAndTail(list: myList2)
+
+func mergeSort(arr: [Int]) -> [Int] {
+    guard arr.count > 1 else { return arr }
+
+    let midIndex = arr.count/2
+
+    let left = mergeSort(arr: Array(arr[0..<midIndex]))
+    let right = mergeSort(arr: Array(arr[midIndex..<arr.count]))
+
+    return merge(leftArr: left, rightArr: right)
+}
+
+func merge(leftArr: [Int], rightArr: [Int]) -> [Int] {
+    var leftPointer = 0
+    var rightPointer = 0
+    var mergedArr = [Int]()
+
+    while leftPointer < leftArr.count && rightPointer < rightArr.count {
+        if leftArr[leftPointer] < rightArr[rightPointer] {
+            mergedArr.append(leftArr[leftPointer])
+            leftPointer += 1
+        } else {
+            mergedArr.append(rightArr[rightPointer])
+            rightPointer += 1
+        }
+    }
+
+    return mergedArr + leftArr[leftPointer..<leftArr.count] + rightArr[rightPointer..<rightArr.count]
+}
+
+let arr1 = [12322322,6,945, 3232,434,32,1221,432423,666]
+let arr2 = [2,3,4,7,8]
+
+merge(leftArr: arr1, rightArr: arr2)
+
+func quickSort(arr: [Int]) -> [Int] {
+    guard arr.count > 1 else { return arr }
+
+    let pivot = arr[arr.count/2]
+
+    let less = arr.filter{$0 < pivot}
+    let equal = arr.filter{$0 == pivot}
+    let more = arr.filter{$0 > pivot}
+
+    return quickSort(arr: less) + equal + quickSort(arr: more)
+}
+
+quickSort(arr: arr1)
+
+/*
+ Write a function that takes two arrays as input, and returns a single array that alternates the elements of each input array.
+ Sample  input: [1,4,8,2], [3,9,10,0]
+ Sample output: [1,3,4,9,8,10,2,0]
+ 
+ What is the Big O runtime of your algorithm?
+ 
+ Bonus: Write a function that takes n arrays as input and returns a single array that alternates the elements of each input array.
+ */
+
+let farr1 = [1,3,4,23,4,224,2,32,322,34,2,34,1,24,1,4,12,41,24,1]
+let farr2 = [2,4,6,8,10,12,14,16,18,20,22,24]
+
+func alternate(arr1: [Int], arr2: [Int]) -> [Int] {
+    var alternated: [Int] = []
+    let length = arr1.count + arr2.count
+    let shorter: [Int]
+    let longer: [Int]
+
+    if arr1.count < arr2.count {
+        shorter = arr1
+        longer = arr2
+    } else {
+        shorter = arr2
+        longer = arr1
+    }
+
+    for index in 0..<length where index < shorter.count {
+            alternated.append(shorter[index])
+            alternated.append(longer[index])
+    }
+
+    if alternated.count < length {
+        let newStartingIndex = shorter.count
+        for index in newStartingIndex..<longer.count {
+            alternated.append(longer[index])
+        }
+    }
+
+    return alternated
+}
+
+let alt = alternate(arr1: arr1, arr2: arr2)
+print(alt)
+
+
+class Node2 {
+    var key: String!
+    var next: Node2?
+}
+
+var head = Node2()
+head.key = "Apple"
+head.next = Node2()
+head.next?.key = "Orange"
+head.next?.next = Node2()
+head.next?.next?.key = "Banana"
+head.next?.next?.next = Node2()
+head.next?.next?.next?.key = "Carrot"
+head.next?.next?.next?.next = Node2()
+head.next?.next?.next?.next?.key = "Beet"
+
+var only = Node2()
+only.key = "dcfwf"
+
+func listLength(startingAt head: Node2) -> Int {
+    guard head.key != nil else { return 0 }
+    
+    var length = 1
+    
+    var current = head
+    var nextUp = current.next
+    
+    while nextUp != nil {
+        current = nextUp!
+        nextUp = current.next
+        length += 1
+    }
+    
+    return length
+}
+
+listLength(startingAt: head)
+listLength(startingAt: only)
+
+func pairSums(_ arr: [Int], _ sum: Int) -> [[Int]] {
+    var pairs: [[Int]] = []
+    var addUpToSum: [Int] = []
+    
+    for numBeingChecked in arr {
+        let itsPair = sum - numBeingChecked
+        addUpToSum.append(itsPair)
+        if arr.contains(itsPair) && !addUpToSum.contains(numBeingChecked) {
+            let pairFound = [numBeingChecked, itsPair]
+                    pairs.append(pairFound)
+        }
+    }
+    
+    return pairs
+}
+
+pairSums([-3, 4, 2, 1, 6, -1], 3)
