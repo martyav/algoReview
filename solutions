@@ -1091,6 +1091,9 @@ func checkMy(braces: String) -> Bool {
     if braces.isEmpty { return false }
     
     let bracesArr = Array(braces.characters)
+    
+    if bracesArr.count <= 1 { return false }
+    
     var countParentheses = 0
     var countCurlyBraces = 0
     var countSquareBraces = 0
