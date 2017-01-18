@@ -1088,8 +1088,6 @@ print(printTrace)
  */
 
 func checkMy(braces: String) -> Bool {
-    if braces.isEmpty { return false }
-    
     let bracesArr = Array(braces.characters)
     
     if bracesArr.count <= 1 { return false }
@@ -1100,82 +1098,56 @@ func checkMy(braces: String) -> Bool {
     
     for index in 0..<bracesArr.count {
         guard bracesArr.count >= index + 1 else { return false }
+        
         switch bracesArr[index] {
         case "(":
             countParentheses += 1
-            if bracesArr[index + 1] == ")" {
-                continue
-            } else {
-                if bracesArr[index..<bracesArr.count].contains(")") {
-                    continue
-                } else {
-                    return false
-                }
+            
+            if bracesArr[index + 1] == ")" { continue }
+            else {
+                if !bracesArr[index..<bracesArr.count].contains(")") { return false }
             }
+            
         case "[":
             countSquareBraces += 1
-            if bracesArr[index + 1] == "]" {
-                continue
-            } else {
-                if bracesArr[index..<bracesArr.count].contains("]") {
-                    continue
-                } else {
-                    return false
-                }
+            
+            if bracesArr[index + 1] == "]" { continue }
+            else {
+                if !bracesArr[index..<bracesArr.count].contains("]") { return false }
             }
+            
         case "{":
             countCurlyBraces += 1
-            if bracesArr[index + 1] == "}" {
-                continue
-            } else {
-                if bracesArr[index..<bracesArr.count].contains("}") {
-                    continue
-                } else {
-                    return false
-                }
+            
+            if bracesArr[index + 1] == "}" { continue }
+            else {
+                if !bracesArr[index..<bracesArr.count].contains("}") { return false }
             }
+            
         case ")":
             countParentheses += 1
             
-            if bracesArr[index - 1] == "(" {
-                continue
-            } else {
-                if countParentheses % 2 != 0 { return false }
-                
-                if bracesArr[0..<index].contains("(") {
-                    continue
-                } else {
-                    return false
-                }
+            if bracesArr[index - 1] == "(" { continue }
+            else {
+                if countParentheses % 2 != 0 || !bracesArr[0..<index].contains("(") { return false }
             }
+            
         case "]":
             countSquareBraces += 1
             
-            if bracesArr[index - 1] == "[" {
-                continue
-            } else {
-                if countSquareBraces % 2 != 0 { return false }
-                
-                if bracesArr[0..<index].contains("[") {
-                    continue
-                } else {
-                    return false
-                }
+            if bracesArr[index - 1] == "[" { continue }
+            else {
+                if countParentheses % 2 != 0 || !bracesArr[0..<index].contains("[") { return false }
             }
+            
         case "}":
             countCurlyBraces += 1
             
-            if bracesArr[index - 1] == "{" {
-                continue
-            } else {
-                if countCurlyBraces % 2 != 0 { return false }
-                
-                if bracesArr[0..<index].contains("{") {
-                    continue
-                } else {
-                    return false
-                }
+            if bracesArr[index - 1] == "{" { continue }
+            else {
+                if countParentheses % 2 != 0 || !bracesArr[0..<index].contains("{") { return false }
             }
+            
         default:
             continue
         }
