@@ -1032,11 +1032,11 @@ func pairSums(_ arr: [Int], _ sum: Int) -> [[Int]] {
     for numBeingChecked in arr {
         let itsPair = sum - numBeingChecked
 
-        if addUpToSum[numBeingChecked] == itsPair {
+        if addUpToSum[itsPair] == numBeingChecked {
             let pairFound = [numBeingChecked, itsPair]
             pairs.append(pairFound)
         } else {
-            addUpToSum[itsPair] = numBeingChecked
+            addUpToSum[numBeingChecked] = itsPair
         }
     }
     
