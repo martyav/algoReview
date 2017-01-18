@@ -1079,3 +1079,88 @@ func trace(take: String, andMakeThem: String, inThis: String) -> String {
 
 var printTrace = trace(take: "abc", andMakeThem: "ABC", inThis: "charles")
 print(printTrace)
+
+/*
+ https://leetcode.com/problems/valid-parentheses/
+ Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+ 
+ The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+ */
+
+func checkMy(braces: String) -> Bool {
+    if braces.isEmpty { return false }
+    
+    let bracesArr = Array(braces.characters)
+    
+    for index in 0..<bracesArr.count {
+        guard bracesArr.count >= index + 1 else { return false }
+        switch bracesArr[index] {
+            case "(":
+            if bracesArr[index + 1] == ")" {
+                continue
+            } else {
+                if bracesArr[index..<bracesArr.count].contains(")") {
+                    continue
+                } else {
+                    return false
+                }
+            }
+            case "[":
+                if bracesArr[index + 1] == "]" {
+                    continue
+                } else {
+                    if bracesArr[index..<bracesArr.count].contains("]") {
+                        continue
+                    } else {
+                        return false
+                    }
+            }
+            case "{":
+                if bracesArr[index + 1] == "}" {
+                    continue
+                } else {
+                    if bracesArr[index..<bracesArr.count].contains("}") {
+                        continue
+                    } else {
+                        return false
+                    }
+            }
+        case ")":
+            if bracesArr[index + 1] == "(" {
+                continue
+            } else {
+                if bracesArr[0..<index].contains("(") {
+                    continue
+                } else {
+                    return false
+                }
+            }
+        case "]":
+            if bracesArr[index + 1] == "[" {
+                continue
+            } else {
+                if bracesArr[0..<index].contains("[") {
+                    continue
+                } else {
+                    return false
+                }
+            }
+        case "}":
+            if bracesArr[index + 1] == "{" {
+                continue
+            } else {
+                if bracesArr[0..<index].contains("{") {
+                    continue
+                } else {
+                    return false
+                }
+            }
+        default:
+            continue
+        }
+    }
+    
+    return true
+}
+
+checkMy(braces: "([}])")
