@@ -1042,3 +1042,40 @@ func pairSums(_ arr: [Int], _ sum: Int) -> [[Int]] {
 }
 
 pairSums([-3, 4, 2, 1, 6, -1], 3)
+
+/*
+ swift trace
+ */
+
+func trace(take: String, andMakeThem: String, inThis: String) -> String {
+    if take.isEmpty || andMakeThem.isEmpty || inThis.isEmpty {
+        return "Empty strings? We need values in every parameter!"
+    }
+    
+    let takeArr: [Character] = Array(take.characters)
+    let makeThemArr: [Character] = Array(andMakeThem.characters)
+    let check = takeArr.count
+    
+    guard makeThemArr.count == check else {
+        return "How can we know what to swap for what if the number of characters in each is uneven??"
+    }
+    
+    let iterateOver: [Character] = Array(inThis.characters)
+    var newString = ""
+    var swapChar: [Character: Character] = [:]
+    
+    for index in 0..<takeArr.count {
+        swapChar[takeArr[index]] = makeThemArr[index]
+    }
+    
+    for char in iterateOver {
+        let addThis = swapChar[char] ?? char
+        
+        newString += String(addThis)
+    }
+    
+    return newString
+}
+
+var printTrace = trace(take: "abc", andMakeThem: "ABC", inThis: "charles")
+print(printTrace)
