@@ -1159,3 +1159,31 @@ func checkMy(braces: String) -> Bool {
 }
 
 checkMy(braces: "([({)])")
+
+public class ListNode {
+      public var val: Int
+      public var next: ListNode?
+      public init(_ val: Int) {
+          self.val = val
+          self.next = nil
+      }
+}
+
+func isPalindrome(_ head: ListNode?) -> Bool {
+    var checker: [Int] = []
+    var current = head
+    guard head?.next != nil else { return true }
+    var nextUp = current?.next
+    
+    while current != nil {
+        checker.append(current!.val)
+        current = nextUp
+        nextUp = current?.next
+    }
+    
+    for index in 0..<checker.count where index <= checker.count/2 {
+        if checker[index] != checker[checker.count - 1 - index] { return false }
+    }
+    
+    return true
+}
