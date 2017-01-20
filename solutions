@@ -1192,21 +1192,17 @@ func reverseVowels(_ s: String) -> String {
     let vowelSet = Array("aeiouAEIOU".characters)
     let sArr = Array(s.characters)
     var holdVowels = [Character]()
-    var indexForVowels = 0
     var finalString = ""
     
     for char in sArr where vowelSet.contains(char) {
         holdVowels.append(char)
     }
     
-    holdVowels = holdVowels.reversed()
-    
-    for (index, char) in sArr.enumerated() {
+    for char in sArr {
         if vowelSet.contains(char) {
-            finalString += String(holdVowels[indexForVowels])
-            indexForVowels += 1
+            finalString += String(describing: holdVowels.popLast()!)
         } else {
-            finalString += String(sArr[index])
+            finalString += String(char)
         }
     }
     
