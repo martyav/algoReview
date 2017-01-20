@@ -1191,20 +1191,18 @@ func isPalindrome(_ head: ListNode?) -> Bool {
 func reverseVowels(_ s: String) -> String {
     let vowelSet = Array("aeiouAEIOU".characters)
     let sArr = Array(s.characters)
-    var vowelsAndPositions = [Int:Character]()
-    var holdVowels: [Character] = []
+    var holdVowels = [Character]()
     var indexForVowels = 0
     var finalString = ""
     
-    for (index, char) in sArr.enumerated() where vowelSet.contains(char) {
+    for char in sArr where vowelSet.contains(char) {
         holdVowels.append(char)
-        vowelsAndPositions[index] = char
     }
     
     holdVowels = holdVowels.reversed()
     
-    for index in 0..<sArr.count {
-        if vowelsAndPositions[index] != nil {
+    for (index, char) in sArr.enumerated() {
+        if vowelSet.contains(char) {
             finalString += String(holdVowels[indexForVowels])
             indexForVowels += 1
         } else {
