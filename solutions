@@ -1188,19 +1188,48 @@ func isPalindrome(_ head: ListNode?) -> Bool {
     return true
 }
 
+// slower but somewhat more readable
+
 func reverseVowels(_ s: String) -> String {
-    let vowelSet = Array("aeiouAEIOU".characters)
+    let vowelsToFind = Array("aeiouAEIOU".characters)
     let sArr = Array(s.characters)
     var holdVowels = [Character]()
     var finalString = ""
     
-    for char in sArr where vowelSet.contains(char) {
+    for char in sArr where vowelsToFind.contains(char) {
         holdVowels.append(char)
     }
     
     for char in sArr {
-        if vowelSet.contains(char) {
+        if vowelsToFind.contains(char) {
             finalString += String(describing: holdVowels.popLast()!)
+        } else {
+            finalString += String(char)
+        }
+    }
+    
+    return finalString
+}
+
+// faster
+
+func reverseVowels(_ s: String) -> String {
+    let sArr = Array(s.characters)
+    let vowelsToFind = Array("aeiouAEIOU".characters)
+    var vowelsWeFound = [Character]()
+    var foundVowelIndexSwapper = 0
+    var finalString = ""
+    
+    for char in sArr where vowelsToFind.contains(char) {
+        vowelsWeFound.append(char)
+    }
+    
+    vowelsWeFound = vowelsWeFound.reversed()
+    
+    for char in sArr {
+        if vowelsWeFound.contains(char) {
+            finalString += String(describing: vowelsWeFound[foundVowelIndexSwapper])
+            foundVowelIndexSwapper += 1
         } else {
             finalString += String(char)
         }
