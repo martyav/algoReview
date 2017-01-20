@@ -1227,7 +1227,7 @@ func reverseVowels(_ s: String) -> String {
     vowelsWeFound = vowelsWeFound.reversed()
     
     for char in sArr {
-        if vowelsWeFound.contains(char) {
+        if vowelsToFind.contains(char) {
             finalString += String(describing: vowelsWeFound[foundVowelIndexSwapper])
             foundVowelIndexSwapper += 1
         } else {
