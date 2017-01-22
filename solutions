@@ -1237,3 +1237,32 @@ func reverseVowels(_ s: String) -> String {
     
     return finalString
 }
+
+// Plus/minus problem from hackerRank
+
+let n = Int(readLine()!)!
+
+// read array and map the elements to integer
+let arr = readLine()!.components(separatedBy: " ").map{ Int($0)! }
+
+func plusMinus(_ n: Int, _ arr: [Int]) {
+    var neg = 0.0
+    var pos = 0.0
+    var zero = 0.0
+    
+    for item in arr {
+        if item > 0 {
+            pos += 1.0
+        } else if item < 0 {
+            neg += 1.0
+        } else {
+            zero += 1.0
+        }
+    }
+    
+    print(pos/Double(n))
+    print(neg/Double(n))
+    print(zero/Double(n))
+}
+
+plusMinus(n, arr)
