@@ -1317,3 +1317,14 @@ func recursivelyCountTheLetter(_ letter: String, in string: String) -> Int {
     
     return recursivelyCountTheLetter(letter, in: string.substring(from: string.index(after: string.startIndex)))
 }
+
+func nthDigit(_ n: Int) -> Int {
+    var string = ""
+    
+    for num in 1...n {
+        string.append(String(num))
+    }
+    
+    let stringArr: [Character] = Array(string.characters)
+    return Int(String(stringArr[n - 1]))!
+}
