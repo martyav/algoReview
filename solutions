@@ -1328,3 +1328,26 @@ func nthDigit(_ n: Int) -> Int {
     let stringArr: [Character] = Array(string.characters)
     return Int(String(stringArr[n - 1]))!
 }
+
+var primes: [Int] = []
+
+func findPrimesRecursively(_ n: Int, listMaker: Int = 2) -> Bool {
+    guard listMaker != n else { return true }
+    guard n > 1 || n % 2 != 0 else { return false }
+    
+    if primes.isEmpty {
+        primes.append(listMaker)
+    }
+    
+    for number in primes {
+        if n % number == 0 {
+            return false
+        } else {
+            primes.append(n)
+            return findPrimesRecursively(n, listMaker: listMaker + 1)
+        }
+    }
+    
+    return true
+}
+
