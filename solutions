@@ -1445,3 +1445,23 @@ tree.root.left?.countDown()
 tree.root.left?.takeTwoSteps()
 tree.root.left?.countDown()
 */
+
+func maxSubArray(_ nums: [Int]) -> Int {
+    var sum = Int.min
+    
+    for indexOfFirstNum in 0..<nums.count {
+        var internalSum = nums[indexOfFirstNum]
+        guard (indexOfFirstNum + 1) != nums.count else { break }
+        for indexOfSecondNum in (indexOfFirstNum + 1)..<nums.count {
+            internalSum += arr[indexOfSecondNum]
+            if internalSum >= sum {
+                sum = internalSum
+            } else if internalSum < sum {
+                break
+            }
+        }
+    }
+    
+    return sum
+}
+
