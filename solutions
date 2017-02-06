@@ -1351,3 +1351,97 @@ func findPrimesRecursively(_ n: Int, listMaker: Int = 2) -> Bool {
     return true
 }
 
+/*
+//: Playground - noun: a place where people can play
+
+import UIKit
+import AVKit
+import AVFoundation
+
+var str = "Hello, playground"
+
+print("Hello World!")
+
+class Node {
+    let val: UInt
+    
+    var left: Node?
+    var right: Node?
+    var previous: Node?
+    
+    init(_ val: UInt) {
+        self.val = val
+    }
+    
+    func showPrevious() -> UInt? {
+        return self.previous?.val
+    }
+}
+
+extension Node {
+    func takeOneStep() {
+        if self.weCanStepThisFar(1) {
+            self.left = Node(1)
+            self.left?.previous = self
+        } else {
+            print("We can't step any further")
+            return
+        }
+    }
+    
+    func takeTwoSteps() {
+        if self.weCanStepThisFar(2) {
+            self.right = Node(2)
+            self.right?.previous = self
+        } else {
+            print("We can't step two at a time right now.")
+            return
+        }
+    }
+    
+    func weCanStepThisFar(_ step: UInt) -> Bool {
+        if let unwrapCountdown = self.countDown() {
+            print(unwrapCountdown >= step)
+            return unwrapCountdown >= step
+        } else {
+            // if countDown is nil, we're in the root node
+            return self.val >= step
+        }
+    }
+    
+    func countDown() -> UInt? {
+        if let unwrapPrevious = self.previous?.val {
+            print(unwrapPrevious - self.val)
+            return unwrapPrevious - self.val
+        } else {
+            return nil
+        }
+    }
+}
+
+class binaryTree {
+    var root: Node
+    
+    init(_ root: Node) {
+        self.root = root
+    }
+    
+    func countChildren() -> Int {
+        var count = 0
+        
+
+        
+        return count
+    }
+}
+
+let firstNode = Node(4)
+
+let tree = binaryTree(firstNode)
+tree.root.takeOneStep()
+
+print("")
+tree.root.left?.countDown()
+tree.root.left?.takeTwoSteps()
+tree.root.left?.countDown()
+*/
