@@ -1470,3 +1470,24 @@ func maxSubArray(_ nums: [Int]) -> Int {
     return sum
 }
 
+func checkEvenOdd(_ arr: [Int]) -> [Int] {
+    var evens = 0
+    var odds = 0
+    var divisibleBy3 = 0
+    
+    for num in arr {
+        if num % 2 == 0 {
+            evens += 1
+        } else {
+            odds += 1
+            
+            if num % 3 == 0 {
+                divisibleBy3 += 1
+            }
+        }
+    }
+    
+    let finalArr = [evens, odds, divisibleBy3]
+    
+    return finalArr
+}
