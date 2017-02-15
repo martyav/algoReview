@@ -1489,3 +1489,297 @@ func checkEvenOdd(_ arr: [Int]) -> [Int] {
     
     return finalArr
 }
+
+
+func findUniques(_ arr: [Int]) -> [Int] {
+    guard arr.count != 0 else {
+        print("The array is empty")
+        return []
+    }
+
+    var uniques = [Int]()
+    let checkForDupes = Set(arr)
+    var runningTally = [Int : Int]()
+
+    for item in checkForDupes {
+        runningTally[item] = 0
+    }
+
+    for item in arr {
+        runningTally[item]! += 1
+    }
+
+    for (key,val) in runningTally where val == 1 {
+        uniques.append(key)
+    }
+
+    return uniques
+}
+
+for num in 1...5 {
+    oneToFive.append(num)
+}
+
+var oneUpToButNotIncludingSix = [Int]()
+
+for num in 1..<6 {
+    oneUpToButNotIncludingSix.append(num)
+}
+
+print(oneUpToButNotIncludingSix == oneToFive)
+
+let residents = ["Lisa" : "Springfield",
+                 "Leela" : "New New York",
+                 "Batman": "Gotham City",
+                 "Faramir": "Osgiliath",
+                 "Daenerys" : "Meereen"]
+let strongWomen = ["Lisa", "Leela", "Daenerys"]
+let fantasyTowns = ["Osgiliath", "Meereen"]
+
+residents.filter{fantasyTowns.contains($0.value)}.map{print($0.0)}
+
+findUniques([1,1,1,1,1,1,1,4,0])
+
+func countTheLetters(_ text: String) -> [Character : Int]? {
+    guard !text.isEmpty else {
+        print("You gave me an empty string")
+        return nil
+    }
+
+    var runningTally = [Character : Int]()
+    let chars = Array(text.characters)
+    let recordTheDifferentLetters = Set(chars)
+
+    recordTheDifferentLetters.map { runningTally[$0] = 0 }
+    chars.map { runningTally[$0]! += 1 }
+
+    return runningTally
+}
+
+countTheLetters("elephant")
+
+func threeShortestWords(_ arr: [String]) -> [String]? {
+    guard arr.count > 2 else {
+        print("How can we find the 3 shortest words in an array that's smaller than 3??")
+        return nil
+    }
+
+    var shortestOfAll: (word: String, length: Int) = ("", Int.max)
+    var secondShortest: (word: String, length: Int) = ("", Int.max)
+    var thirdShortest: (word: String, length: Int) = ("", Int.max)
+
+    var topShortest = [String]()
+    var runningTally = [String : Int]()
+
+    for word in arr {
+        runningTally[word] = word.characters.count
+    }
+
+    for item in runningTally {
+        if item.value < shortestOfAll.length {
+            thirdShortest = secondShortest
+            secondShortest = shortestOfAll
+            shortestOfAll.word = item.key
+            shortestOfAll.length = item.value
+        } else if item.value < secondShortest.length {
+            thirdShortest = secondShortest
+            secondShortest.word = item.key
+            secondShortest.length = item.value
+        } else if item.value < thirdShortest.length {
+            thirdShortest.word = item.key
+            thirdShortest.length = item.value
+        }
+    }
+
+    _ = [
+        shortestOfAll,
+        secondShortest,
+        thirdShortest
+        ].map { topShortest.append($0.word) }
+
+    return topShortest
+}
+
+threeShortestWords(["testing", "also"])
+
+class LLNode {
+    var key: Int
+    var next: LLNode?
+    
+    init(key: Int) {
+        self.key = key
+    }
+    
+    func add(_ new: Int) {
+        var keepGoing = self
+        
+        while keepGoing.next != nil {
+            keepGoing = keepGoing.next!
+        }
+        
+        keepGoing.next = LLNode(key: new)
+    }
+    
+    func printKeys() {
+        var keepGoing = self
+        
+        print(keepGoing.key)
+        
+        while keepGoing != nil {
+            print(keepGoing.key)
+            if let somethingNext = keepGoing.next {
+                keepGoing = somethingNext
+            } else {
+                break
+            }
+        }
+    }
+}
+
+let list = LLNode(key: 5)
+list.add(14)
+list.add(17)
+list.add(23)
+
+list.printKeys()
+
+func searchLinkedList(head: LLNode, findMe: Int) -> Bool {
+    var keepGoing = head
+    
+    while keepGoing != nil {
+        if keepGoing.key == findMe {
+            return true
+        } else {
+            if let somethingNext = keepGoing.next {
+                keepGoing = somethingNext
+            } else {
+                break
+            }
+        }
+    }
+    
+    return false
+}
+
+searchLinkedList(head: list, findMe: 5)
+
+func recursiveZip(zig: [Int], zag: [Int], takeFromZig: Bool = true, finalArr: [Int] = []) -> [Int] {
+    if zig.isEmpty && !zag.isEmpty {
+        return finalArr + zag
+    }
+    
+    if !zig.isEmpty && zag.isEmpty {
+        return finalArr + zig
+    }
+    
+    guard !zig.isEmpty && !zag.isEmpty else {
+        return finalArr
+    }
+    
+    var newArr = finalArr
+    var newZig = zig
+    var newZag = zag
+    
+    if takeFromZig {
+        newArr.append(newZig.removeFirst())
+    } else {
+        newArr.append(newZag.removeFirst())
+    }
+    
+    return recursiveZip(zig: newZig, zag: newZag, takeFromZig: !takeFromZig, finalArr: newArr)
+}
+
+recursiveZip(zig: [100,500,1000], zag: [6,7,8,9,10])
+
+class Node<T> {
+    var key: T?
+    var next: Node<T>?
+}
+
+class LinkedList<T> {
+    var head: Node<T>
+    var tail: Node<T>
+    init() {
+        self.head = Node<T>()
+        self.tail = head
+    }
+}
+class Queue<T> {
+    private var list = LinkedList<T>()
+    func enQueue(newElement: T) {
+        if list.head.key == nil {
+            list.head.key = newElement
+            return
+        } else {
+            let newNode = Node<T>()
+            newNode.key = newElement
+            list.tail.next = newNode
+            list.tail = newNode
+        }
+    }
+    
+    func deQueue() -> T? {
+        if let oldHeadKey = list.head.key {
+            if let nextNode = list.head.next {
+                list.head = nextNode
+            } else {
+                list.head.key = nil
+            }
+            return oldHeadKey
+        } else {
+            return nil
+        }
+    }
+    
+    func isEmpty() -> Bool {
+        return list.head.key == nil
+    }
+    
+    func peek() -> T? {
+        return list.head.key
+    }
+}
+
+func skipTheLine(queue: Queue<Any>, value: Any) -> Queue<Any> {
+    var cutLine = Queue<Any>()
+    
+    if cutLine.isEmpty() {
+        cutLine.enQueue(newElement: value)
+    } else {
+        while queue.peek != nil {
+            cutLine.enQueue(newElement: queue.deQueue()!)
+        }
+    }
+    
+    return cutLine
+}
+
+var first = Queue<Any>()
+first.enQueue(newElement: 9)
+first.enQueue(newElement: 4)
+first.enQueue(newElement: 10)
+first.enQueue(newElement: 3)
+first.enQueue(newElement: 2)
+let second = skipTheLine(queue: first, value: 14)
+second.peek()
+first.peek()
+
+func skipTheLineAlt(queue: Queue<Any>, value: Any) -> Queue<Any> {
+    var holdThese = [Any]()
+    holdThese.append(value)
+        
+    while !queue.isEmpty() {
+        holdThese.append(queue.deQueue())
+    }
+    
+    while !holdThese.isEmpty {
+        queue.enQueue(newElement: holdThese.removeFirst())
+    }
+    
+    return queue
+}
+
+let third = skipTheLineAlt(queue: first, value: 12)
+third.peek()
+first.peek()
+
