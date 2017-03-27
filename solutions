@@ -1786,7 +1786,7 @@ first.peek()
 func reverseStringRedux(_ text: String) -> String {
     var finalString: String = ""
     
-    guard text != " " else {
+    guard !palindromeRedux(text) else {
         return text
     }
     
