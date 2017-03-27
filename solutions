@@ -1783,3 +1783,35 @@ let third = skipTheLineAlt(queue: first, value: 12)
 third.peek()
 first.peek()
 
+func reverseStringRedux(_ text: String) -> String {
+    var finalString: String = ""
+    
+    guard text != " " else {
+        return text
+    }
+    
+    let textArr = Array(text.characters)
+    print(textArr)
+    
+    for index in 0...textArr.count - 1 {
+        finalString += String(textArr[textArr.count - 1 - index])
+    }
+    
+    return finalString
+}
+
+func palindromeRedux(_ text: String) -> Bool {
+    let textArr = Array(text.characters)
+    var modifier: Int = 0
+    
+    if textArr.count % 2 != 0 {
+        modifier = 1
+        for index in 0...((textArr.count/2) + modifier) {
+            if textArr[index] != textArr[textArr.count - 1 - index] {
+                return false
+            }
+        }
+    }
+    
+    return true
+}
