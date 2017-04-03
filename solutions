@@ -1815,3 +1815,23 @@ func palindromeRedux(_ text: String) -> Bool {
     
     return true
 }
+
+func pushZeros(testCases: Int, arrCount: Int, nums: [Int]) -> [Int] {
+    var returnArr = nums
+    
+    for num in nums {
+        if num == 0 {
+            returnArr.append(0)
+        }
+    }
+    
+    for num in nums {
+        if num == 0 {
+            returnArr.remove(at: returnArr.index(of: num)!)
+        }
+    }
+    
+    return returnArr
+}
+
+pushZeros(testCases: 1, arrCount: 5, nums: [3,5,0,0,4])
