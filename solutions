@@ -1835,3 +1835,31 @@ func pushZeros(testCases: Int, arrCount: Int, nums: [Int]) -> [Int] {
 }
 
 pushZeros(testCases: 1, arrCount: 5, nums: [3,5,0,0,4])
+
+let numOfCandles = Int(readLine()!)!
+let heightOfCandles = readLine()!.components(separatedBy: " ").map{ Int($0)! }
+let tallestCandleValue = heightOfCandles.max()
+var numberOfTallestCandles = 0
+
+for index in 0..<numOfCandles where heightOfCandles[index] == tallestCandleValue {
+    numberOfTallestCandles += 1
+}
+
+print(numberOfTallestCandles)
+
+let arr = readLine()!.components(separatedBy: " ").map { Int($0) }
+
+var arrayOfSums = [Int]()
+
+for index in 0..<arr.count {
+    var sum = 0
+    
+    for jindex in 0..<arr.count where jindex != index {
+        sum += arr[jindex]!
+    }
+    
+    arrayOfSums.append(sum)
+}
+
+print(arrayOfSums.min()!, arrayOfSums.max()!)
+
