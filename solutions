@@ -1891,3 +1891,22 @@ func findRelativeRanks(_ nums: [Int]) -> [String] {
     
         return returnMe
     }
+    
+func searchInsert(_ nums: [Int], _ target: Int) -> Int {
+        if nums.contains(target) {
+            return nums.index(of: target)!
+        } else {
+            for index in 0..<nums.count {
+                if target <= nums[0] {
+                    return 0
+                }
+                
+                guard index + 1 != nums.count else { return nums.count }
+                
+                if target > nums[index] && target < nums[index + 1] {
+                    return index + 1
+                }
+            }
+            return nums.count
+        }
+    }
