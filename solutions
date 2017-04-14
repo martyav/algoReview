@@ -1910,3 +1910,32 @@ func searchInsert(_ nums: [Int], _ target: Int) -> Int {
             return nums.count
         }
     }
+
+func findNextMultipleOfFive(_ number: Int) -> Int {
+    var foundMultiple = 1
+    
+    let divisor = (number/5) + 1
+    
+    foundMultiple = divisor * 5
+    
+    return foundMultiple
+    
+}
+
+func roundUpIfCloseToMultipleOfFive(_ number: Int) -> Int {
+    if findNextMultipleOfFive(number) - number < 3 {
+        return findNextMultipleOfFive(number)
+    }
+    
+    return number
+}
+
+var arrayOfGrades = [73, 67, 38, 33]
+
+for grade in arrayOfGrades {
+    if grade >= 38 {
+        print(roundUpIfCloseToMultipleOfFive(grade))
+    } else {
+        print(grade)
+    }
+}
