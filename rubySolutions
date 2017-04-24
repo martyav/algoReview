@@ -1,0 +1,15 @@
+# First program
+
+puts "Hello world."
+
+# Hackerrank challenge: https://www.hackerrank.com/challenges/ruby-strings-encoding
+
+def transcode(string)
+    ''' 
+    This is the proper way to alter the input string to a different encoding
+    return string.encode!(Encoding::UTF_8)
+
+    The below passes the hackerrank challenge, but does not change the internal byte representation
+    '''
+    string.force_encoding('UTF-8')
+end
