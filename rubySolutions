@@ -13,3 +13,21 @@ def transcode(string)
     '''
     string.force_encoding('UTF-8')
 end
+
+# Boring, basic loop
+
+for number in 1..10
+    puts number
+end
+
+# Ruby .each method loop
+
+array = [1, 2, 3, 10, 20, 30]
+
+array.each do |number|
+	if number < 10
+		puts number + 10
+	elsif number >= 10
+		puts number + (number/10)
+	end
+end
