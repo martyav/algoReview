@@ -1950,5 +1950,5 @@ Given one non-whitespace printable character, make a 3x3 square representation o
 */
 
 func makeASquare3(_ c: String) {
-  [1,2,3].map { $0 == 2 ? print(c + " " + c) : print(String(repeating: c, count: 3)) }
+  [1,2,3].map{$0==2 ? print(c+" "+c) : print(c+c+c)}
 }
