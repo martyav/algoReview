@@ -1952,3 +1952,7 @@ Given one non-whitespace printable character, make a 3x3 square representation o
 func makeASquare3(_ c: String) {
   [1,2,3].map{$0==2 ? print(c+" "+c) : print(c+c+c)}
 }
+
+/* One line fizzbuzz */
+
+d.map{$0%15 == 0 ? print("Fizzbuzz") : $0%3 == 0 ? print("Fizz") : $0%5 == 0 ? print("Buzz") : print($0)}
