@@ -31,3 +31,15 @@ array.each do |number|
 		puts number + (number/10)
 	end
 end
+
+# Hackerrank simple array sum: https://www.hackerrank.com/challenges/simple-array-sum
+
+def simpleArraySum(n, ar)
+    return ar.reduce(:+)
+end
+
+n = gets.strip.to_i
+ar = gets.strip
+ar = ar.split(' ').map(&:to_i)
+result = simpleArraySum(n, ar)
+puts result;
