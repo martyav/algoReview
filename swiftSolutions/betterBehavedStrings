@@ -1,6 +1,8 @@
 extension String {
-    func length() -> Int {
-        return self.characters.count
+    var length: Int {
+        get {
+            return self.characters.count
+        }
     }
     
     var array: [String] {
