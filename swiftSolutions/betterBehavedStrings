@@ -1,0 +1,11 @@
+extension String {
+    func length() -> Int {
+        return self.characters.count
+    }
+    
+    var array: [String] {
+        get {
+            return self.characters.map { String($0) }
+        }
+    }
+}
