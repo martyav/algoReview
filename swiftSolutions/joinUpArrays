@@ -1,0 +1,33 @@
+//Given two sorted arrays, write a function that returns a single sorted array with all of the elements of the two input arrays. Your solution should work in O(n) time.
+
+func joinUp(_ arr1: [Int], _ arr2: [Int]) -> [Int] {
+    var finalArr = [Int]()
+    var temp: Int = 0
+    var tempMergedArr = [Int]()
+
+    for el in arr1 {
+        tempMergedArr.append(el)
+    }
+    
+    for el in arr2 {
+        tempMergedArr.append(el)
+    }
+
+    for indexOfElement1 in 0..<tempMergedArr.count {
+        if indexOfElement1 == 0 {
+            finalArr.append(tempMergedArr[0])
+            temp = finalArr[indexOfElement1]
+        } else {
+            if tempMergedArr[indexOfElement1] > temp {
+                finalArr.append(tempMergedArr[indexOfElement1])
+            } else {
+                finalArr.append(temp)
+                temp = finalArr[indexOfElement1]
+            }
+        }
+    }
+
+    return finalArr
+}
+
+print(joinUp(input1, input2))
