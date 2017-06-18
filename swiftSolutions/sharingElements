@@ -1,0 +1,23 @@
+// Return only the elements shared by two arrays
+
+func sharedElements(arr1: [Int], arr2: [Int]) -> [Int] {
+    let set1 = Set(arr1)
+    let set2 = Set(arr2)
+
+    return Array(set1.intersection(set2))
+}
+
+func sharedElements2(arr1: [Int], arr2: [Int]) -> [Int] {
+    var shared = [Int]()
+
+    for index in 0..<arr1.count {
+        for jindex in 0..<arr2.count {
+            guard arr1[index] == arr2[jindex] else { continue }
+            shared.append(arr1[index])
+        }
+    }
+
+    shared = noDuplicates(shared)
+
+    return shared
+}
