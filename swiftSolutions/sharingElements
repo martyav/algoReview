@@ -1,4 +1,4 @@
-// Return only the elements shared by two arrays
+// Return only the elements shared by two arrays -- there should be no duplicates in the returned array -- i.e [1,2,3], not [1,1,1,2,3]
 
 func sharedElements(arr1: [Int], arr2: [Int]) -> [Int] {
     let set1 = Set(arr1)
@@ -17,7 +17,10 @@ func sharedElements2(arr1: [Int], arr2: [Int]) -> [Int] {
         }
     }
 
-    shared = noDuplicates(shared)
+    return Array(Set(shared))
+}
 
-    return shared
+func sharedElements2(arr1: [Int], arr2: [Int]) -> [Int] {
+    let cleanedOfDuplicates = Array(Set(arr1))
+    return cleanedOfDuplicates.filter { arr2.contains($0) }
 }
