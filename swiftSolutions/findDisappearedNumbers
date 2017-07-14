@@ -1,0 +1,22 @@
+/* 
+  Given an unsorted array of numbers, find those numbers that are not included in the range between the smallest number and the biggest. For example, in the array [1,2,4,5], the function should return the number 3.
+*/
+
+func findDisappearedNumbers(_ nums: [Int]) -> Set<Int> {
+    var checkerSet: Set<Int> = []
+
+    for i in 1...nums.count {
+        checkerSet.insert(i)
+        print(checkerSet)
+    }
+
+    for j in nums {
+        print(checkerSet.contains(j))
+        if checkerSet.contains(j) {
+            checkerSet.remove(j)
+        }
+    }
+    return checkerSet
+}
+
+findDisappearedNumbers([4,3,2,7,8,2,3,1])
