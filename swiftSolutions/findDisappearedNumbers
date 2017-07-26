@@ -5,15 +5,15 @@
 func findDisappearedNumbers(_ nums: [Int]) -> Set<Int> {
     var checkerSet: Set<Int> = []
 
-    for i in 1...nums.count {
-        checkerSet.insert(i)
+    for index in 1...nums.count {
+        checkerSet.insert(index)
         print(checkerSet)
     }
 
-    for j in nums {
-        print(checkerSet.contains(j))
-        if checkerSet.contains(j) {
-            checkerSet.remove(j)
+    for index in nums {
+        print(checkerSet.contains(index))
+        if checkerSet.contains(index) {
+            checkerSet.remove(index)
         }
     }
     return checkerSet
