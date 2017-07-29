@@ -1,0 +1,28 @@
+// Convert AM/PM time to military time -- https://www.hackerrank.com/challenges/time-conversion/problem
+
+// Read the string
+var s = readLine()!
+var newHour = ""
+var newString = ""
+var ireneAdler:[Character] = []
+
+for char in s.characters {
+    ireneAdler.append(char)
+}
+
+for char in ireneAdler {
+    if (ireneAdler[8] == "A" && Int((String(ireneAdler[0])) + (String(ireneAdler[1])))! < 12) {
+        newString = String(ireneAdler[0...(ireneAdler.count - 3)])
+        break
+    } else if ireneAdler[8] == "A" && String(ireneAdler[0]) + String(ireneAdler[1]) == "12" {
+        newHour = "00"
+    } else if ireneAdler[8] == "P" && Int((String(ireneAdler[0])) + (String(ireneAdler[1])))! < 12 {
+        newHour = String(Int(String(ireneAdler[0]) + String(ireneAdler[1]))! + 12) 
+    } else if (ireneAdler[8] == "P" && String(ireneAdler[0]) + String(ireneAdler[1]) == "12") {
+        newString = String(ireneAdler[0...(ireneAdler.count - 3)])
+        break
+    }
+    newString = String(newHour) + String(ireneAdler[2...(ireneAdler.count - 3)])
+}
+
+print(newString)
