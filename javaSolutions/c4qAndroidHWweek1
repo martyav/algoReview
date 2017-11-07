@@ -1,0 +1,77 @@
+package com.company;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Main {
+  // Q1. add-function
+  // Write a method named add that takes in two numbers as arguments.
+  // The function should return the sum of the two
+
+  static int add(int num1, int num2) {
+    return num1 + num2;
+  }
+
+  /*
+  Q2. age-calculator
+  Write a method named calculateAge that takes two arguments: birth year and current year.
+  The method should then calculate the two possible ages based on that year, and return the
+  result in the following format: (replacing 'NN' with the possible years) :
+  "You are either NN or NN."
+  */
+
+  static String calculateAge(int birthYear, int currentYear) {
+    int age = currentYear - birthYear;
+    return String.format("You are either %d or %d.", age, age + 1);
+  }
+
+  /*
+  Q3. exes-and-ohs
+  Check to see if a string has the same count of 'x's and 'o's. The method must return a boolean
+  and be case insensitive. The string may contain any Unicode character -- not just 'x's and 'o's
+  -- and may be of any length.
+   */
+
+  static boolean exesAndOhs(String text) {
+    String lowercase = text.toLowerCase();
+
+    int exes = 0;
+    int ohs = 0;
+
+    for (int i = 0; i < text.length(); i++) {
+      if("x".equals(text.charAt(i)) || "o".equals(text.charAt(i))) {
+        if("x".equals(text.charAt(i))) {
+          exes += 1;
+        } else {
+          ohs += 1;
+        }
+      }
+    }
+
+    return exes == ohs;
+  }
+
+  /*
+  Q4. endsly
+  Write a Java method that takes a string as a parameter and returns true if it ends in "ly".
+  */
+
+  static boolean endsly(String text) {
+    Pattern regex = Pattern.compile("ly$");
+    Matcher matcher = regex.matcher(text);
+
+    return matcher.find();
+  }
+
+    public static void main(String[] args) {
+      int q1 = add(1,2);
+      String q2 = calculateAge(1978, 2017);
+      boolean q3 = exesAndOhs("xoxo");
+      boolean q4 = endsly("endsly");
+
+      System.out.println(q1);
+      System.out.println(q2);
+      System.out.println(q3);
+      System.out.println(q4);
+    }
+}
