@@ -1,12 +1,15 @@
 package com.company;
 
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-  // Q1. add-function
-  // Write a method named add that takes in two numbers as arguments.
-  // The function should return the sum of the two
+  /*
+  Q1. add-function
+  Write a method named add that takes in two numbers as arguments.
+  The function should return the sum of the two
+  */
 
   static int add(int num1, int num2) {
     return num1 + num2;
@@ -35,20 +38,13 @@ public class Main {
   static boolean exesAndOhs(String text) {
     String lowercase = text.toLowerCase();
 
-    int exes = 0;
-    int ohs = 0;
+    Pattern findEx = Pattern.compile("x");
+    Matcher exes = findEx.matcher(lowercase);
 
-    for (int i = 0; i < text.length(); i++) {
-      if("x".equals(text.charAt(i)) || "o".equals(text.charAt(i))) {
-        if("x".equals(text.charAt(i))) {
-          exes += 1;
-        } else {
-          ohs += 1;
-        }
-      }
-    }
+    Pattern findOh = Pattern.compile("o");
+    Matcher ohs = findOh.matcher(lowercase);
 
-    return exes == ohs;
+    return exes.results().count() == ohs.results().count();
   }
 
   /*
@@ -57,21 +53,178 @@ public class Main {
   */
 
   static boolean endsly(String text) {
-    Pattern regex = Pattern.compile("ly$");
-    Matcher matcher = regex.matcher(text);
+    String lowercase = text.toLowerCase();
 
-    return matcher.find();
+    Pattern findLy = Pattern.compile("ly");
+    Matcher lyMatcher = findLy.matcher(lowercase);
+
+    return lyMatcher.find();
   }
+
+  /*
+  Q5. chessboard
+  Write a program that creates a single string that represents an 8×8 grid, using newline characters
+  to separate lines. At each position of the grid there is either a space or a “#” character. The
+  characters should form a chess board.
+  */
+
+  static String chessboard(int size) {
+    String board = "";
+
+    for(int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        if(i % 2 == 0) {
+          if(j % 2 == 0) {
+            board += " ";
+          } else {
+            board += "#";
+          }
+        } else {
+          if(j % 2 == 0) {
+            board += "#";
+          } else {
+            board += " ";
+          }
+        }
+
+        if(j == (size - 1)){
+          board += "\n";
+        }
+      }
+    }
+
+    return board;
+  }
+
+  /*
+  Q6. scanner-hungry-hippos
+  Hippos only like to eat foods that begin with the letter 'h'. In an effort to reduce food waste,
+  the local zoo has hired you to write a Java program that can predict whether or not the hippos
+  will eat a given food.
+
+  While running, your program should prompt the user to enter a food. If the food is one that hippos
+   like to eat, the program should print "Yum!" -- otherwise, it should print "Yuck!".
+  */
+
+  static void scannerHungryHippos() {
+    System.out.println("Hello! Let's play Hungry Hungry Scanner.\n");
+
+    Scanner input = new Scanner(System.in);
+
+    Pattern findH = Pattern.compile("^[hH]");
+    Matcher hMatcher;
+
+    while(true) {
+      System.out.println("Enter a food.");
+
+      hMatcher = findH.matcher(input.nextLine());
+
+      if(hMatcher.find()) {
+        System.out.println("Yum!");
+      } else {
+          System.out.println("Yuck!");
+        }
+      }
+    }
+
+    /*
+    Q7. string-elide
+    Write a method that takes a string parameter. For longer strings, the method returns a new
+    string constructed out of the first three letters of the argument, followed by three periods
+    ("..."), followed by the last letter of the argument.
+
+    However, if the resulting string is not shorter than the argument, the method should return the
+    argument instead.
+    */
+
+    static String elide(String text) {
+      if(text.length() > 7) {
+        return text.substring(0, 3) + "..." + text.substring(text.length() - 1);
+      }
+        return text;
+    }
+
+    /*
+    Q8. triangle
+    Write a loop that will print the following triangle to the console:
+    #
+    ##
+    ###
+    ####
+    #####
+    ######
+    #######
+    */
+
+    static void triangle() {
+      String steps = "";
+
+      for(int i = 1; i <= 7; i++) {
+        steps += "#";
+        System.out.println(steps);
+      }
+    }
+
+    /*
+    Q9. count-code
+    Write a Java method that takes a string parameter and returns the number of times that the
+    string "code" appears anywhere in the given string, except we'll accept any letter for the 'd',
+    so "cope" and "cooe" count.
+    */
+
+    static int countCode(String text) {
+      Pattern findCode = Pattern.compile("co.e");
+      int count = 0;
+
+      Matcher codes = findCode.matcher(text.toLowerCase());
+
+      while (codes.find()) {
+        count ++;
+      }
+
+      return count;
+    }
+
+    /*
+    Q10. count-the-vowels
+    Write a function that accepts a string as a parameter and counts the number of vowels within the
+    string (vowels include a, e, i, o , u - don't count 'y'). The function should return the number
+    of vowels in the string.
+    */
+
+    static int countTheVowels(String text) {
+      Pattern findVowels = Pattern.compile("[aeiou]");
+      int count = 0;
+
+      Matcher vowels = findVowels.matcher(text.toLowerCase());
+
+      while (vowels.find()) {
+        count ++;
+      }
+
+      return count;
+    }
 
     public static void main(String[] args) {
       int q1 = add(1,2);
       String q2 = calculateAge(1978, 2017);
-      boolean q3 = exesAndOhs("xoxo");
+      boolean q3 = exesAndOhs("xxo");
       boolean q4 = endsly("endsly");
+      String q5 = chessboard(8);
+      String q7 = elide("Hello!");
+      int q8 = countCode("aaaacodexxxcopexxxxcoxeyyy");
+      int q9 = countTheVowels("aeiou");
 
       System.out.println(q1);
       System.out.println(q2);
       System.out.println(q3);
       System.out.println(q4);
+      System.out.println(q5);
+      System.out.println(q7);
+      System.out.println(q8);
+      System.out.println(q9);
+      triangle();
+
+      //scannerHungryHippos();
     }
 }
