@@ -191,9 +191,9 @@ public class Main {
 
   static int countCode(String text) {
     Pattern findCode = Pattern.compile("co.e");
-    int count = 0;
-
     Matcher codes = findCode.matcher(text.toLowerCase());
+    
+    int count = 0;
 
     while (codes.find()) {
       count ++;
@@ -213,9 +213,9 @@ public class Main {
 
   static int countTheVowels(String text) {
     Pattern findVowels = Pattern.compile("[aeiou]");
-    int count = 0;
-
     Matcher vowels = findVowels.matcher(text.toLowerCase());
+    
+    int count = 0;
 
     while (vowels.find()) {
       count ++;
@@ -232,6 +232,7 @@ public class Main {
   * The function should take two arguments, the first being the string, and the second being the
   * character. The function should return only the part of the string that comes AFTER the specified
   * character.
+  *
   * In other words, the function should chop the string into two parts and return only the part that
   * comes after the specified character.
   */
@@ -318,7 +319,6 @@ public class Main {
     Scanner input = new Scanner(System.in);
 
     String [] possibleToppings = {"crushed butterfingers", "waffle cone pieces", "caramel sauce"};
-
     List<String> chosenToppings = new ArrayList<String>();
 
     System.out.println("Hello! What's your name?");
