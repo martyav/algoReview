@@ -48,18 +48,18 @@ kangaroo(startingPosition1: values[0]!, velocity1: values[1]!, startingPosition2
 // Better way -- high school algebra win
 
 func kangaroo(startingPosition1 sp1: Int, velocity1 v1: Int, startingPosition2 sp2: Int, velocity2 v2: Int) {
-    func compareKangaroos(sp1: Int, v1: Int, sp2: Int, v2: Int) -> Int {
-        let deltaV = (v1 - v2)
-        let deltaP = (sp2 - sp1)
+    func isΔPositionDivisibleByΔVelocity(sp1: Int, v1: Int, sp2: Int, v2: Int) -> Bool {
+        let ΔV = (v1 - v2)
+        let ΔP = (sp2 - sp1)
         
-        guard deltaV != 0 else {
-            return 0
+        guard ΔV != 0 else {
+            return false
         }
         
-        return deltaP % deltaV
+        return ΔP % ΔV == 0
     }
     
-    let kangaroosMeet = (compareKangaroos(sp1: sp1, v1: v1, sp2: sp2, v2: v2) == 0)
+    let kangaroosMeet = isΔPositionDivisibleByΔVelocity(sp1: sp1, v1: v1, sp2: sp2, v2: v2)
     
     guard v1 > v2 && kangaroosMeet else {
         print("NO")
