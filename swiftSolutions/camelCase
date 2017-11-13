@@ -1,0 +1,26 @@
+// https://www.hackerrank.com/challenges/camelcase/problem
+
+/* 
+Alice wrote a sequence of words in CamelCase -- a string having the following properties:
+
+* It is a concatenation of one or more words consisting of English letters.
+* All letters in the first word are lowercase.
+* For each of the subsequent words, the first letter is uppercase and rest of the letters are lowercase.
+
+Given a string, print the number of words in the string on a new line.
+*/
+
+let input = readLine()!
+
+// Enter your code here 
+
+func camelCase(_ text: String) -> Int {
+    let array = text.components(separatedBy: CharacterSet.uppercaseLetters)
+    
+    return array.count
+}
+
+print(camelCase(input))
+
+// Fun fact: CharacterSet.uppercaseLetters is not the same as CharacterSet.capitalizedLetters
+// Thanks, Swift!
