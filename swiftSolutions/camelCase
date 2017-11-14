@@ -12,15 +12,23 @@ Given a string, print the number of words in the string on a new line.
 
 let input = readLine()!
 
-// Enter your code here 
-
-func camelCase(_ text: String) -> Int {
+func numberOfWords(in text: String) -> Int {
     let array = text.components(separatedBy: CharacterSet.uppercaseLetters)
     
     return array.count
 }
 
-print(camelCase(input))
+print(numberOfWords(in: input))
 
-// Fun fact: CharacterSet.uppercaseLetters is not the same as CharacterSet.capitalizedLetters
-// Thanks, Swift!
+// Fun fact: CharacterSet.uppercaseLetters is not the same as CharacterSet.capitalizedLetters!
+
+// .capitalizedLetters corresponds to Unicode Lt, a category which contains 31 characters,
+// mostly Greek: http://www.fileformat.info/info/unicode/category/Lt/list.htm
+
+// .uppercaseLetters returns a set of characters combining Lt with Lu, a different category
+// containing about 1700 characters: 
+// http://www.fileformat.info/info/unicode/category/Lu/list.htm
+
+// Using .capitlaizedLetters instead of .uppercaseLetters will often return 1, 
+// if the text argument is not empty, since the algorithm will not separate the words 
+// correctly
