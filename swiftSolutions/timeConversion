@@ -4,25 +4,31 @@
 var s = readLine()!
 var newHour = ""
 var newString = ""
-var ireneAdler:[Character] = []
+var timeStamp:[Character] = []
 
 for char in s.characters {
-    ireneAdler.append(char)
+    timeStamp.append(char)
 }
 
-for char in ireneAdler {
-    if (ireneAdler[8] == "A" && Int((String(ireneAdler[0])) + (String(ireneAdler[1])))! < 12) {
-        newString = String(ireneAdler[0...(ireneAdler.count - 3)])
-        break
-    } else if ireneAdler[8] == "A" && String(ireneAdler[0]) + String(ireneAdler[1]) == "12" {
-        newHour = "00"
-    } else if ireneAdler[8] == "P" && Int((String(ireneAdler[0])) + (String(ireneAdler[1])))! < 12 {
-        newHour = String(Int(String(ireneAdler[0]) + String(ireneAdler[1]))! + 12) 
-    } else if (ireneAdler[8] == "P" && String(ireneAdler[0]) + String(ireneAdler[1]) == "12") {
-        newString = String(ireneAdler[0...(ireneAdler.count - 3)])
-        break
+for _ in 0..<timeStamp.count {
+    switch timeStamp[8] {
+        case "A":
+            if (Int((String(timeStamp[0])) + (String(timeStamp[1])))! < 12) {
+                newString = String(timeStamp[0...(timeStamp.count - 3)])
+            } else if (String(timeStamp[0]) + String(timeStamp[1]) == "12") {
+                newHour = "00"
+            } else {
+                fallthrough
+            }
+        case "P":
+            if (Int((String(timeStamp[0])) + (String(timeStamp[1])))! < 12) {
+                newString = String(timeStamp[0...(timeStamp.count - 3)])
+            } else if (String(timeStamp[0]) + String(timeStamp[1]) == "12") {
+                newString = String(timeStamp[0...(timeStamp.count - 3)])
+            } else {
+                fallthrough
+            }
+        default:
+            newString = String(newHour) + String(timeStamp[2...(timeStamp.count - 3)])
     }
-    newString = String(newHour) + String(ireneAdler[2...(ireneAdler.count - 3)])
 }
-
-print(newString)
