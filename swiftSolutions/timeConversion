@@ -20,7 +20,7 @@ func militaryTime(_ time: [Character]) -> String {
     
     switch time[8] {
     case "A":
-        guard hourAsInt > 12 else { 
+        guard hourAsInt >= 12 else { 
             return stampMinusLetters(time)
         }
         
