@@ -54,3 +54,17 @@ class Queue<T> {
         return list.head.key
     }
 }
+
+func skipTheLine(queue: Queue<Any>, value: Any) -> Queue<Any> {
+    var cutLine = Queue<Any>()
+
+    if cutLine.isEmpty() {
+        cutLine.enQueue(newElement: value)
+    } else {
+        while queue.peek != nil {
+            cutLine.enQueue(newElement: queue.deQueue()!)
+        }
+    }
+
+    return cutLine
+}
