@@ -68,3 +68,20 @@ func skipTheLine(queue: Queue<Any>, value: Any) -> Queue<Any> {
 
     return cutLine
 }
+
+func skipTheLineAlt(queue: Queue<Any>, value: Any) -> Queue<Any> {
+    var holdThese = [Any]()
+    
+    holdThese.append(value)
+
+    while !queue.isEmpty() {
+        holdThese.append(queue.deQueue())
+    }
+
+    while !holdThese.isEmpty {
+        queue.enQueue(newElement: holdThese.removeFirst())
+    }
+    
+    return queue
+}
+
