@@ -20,7 +20,7 @@ func sharedElements2(arr1: [Int], arr2: [Int]) -> [Int] {
     return Array(Set(shared))
 }
 
-func sharedElements2(arr1: [Int], arr2: [Int]) -> [Int] {
+func sharedElements3(arr1: [Int], arr2: [Int]) -> [Int] {
     let cleanedOfDuplicates = Array(Set(arr1))
     return cleanedOfDuplicates.filter { arr2.contains($0) }
 }
