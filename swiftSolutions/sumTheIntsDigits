@@ -43,3 +43,11 @@ func recursiveNumerology(_ num: Int) -> Int {
 }
 
 recursiveNumerology(402)
+
+func recursiveNumerology2(_ num: Int) -> Int {
+    guard num > 10 else {
+        return num
+    }
+    
+    return (num % 10) + recursiveNumerology2(n/10) 
+}
