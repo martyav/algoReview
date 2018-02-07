@@ -1,0 +1,27 @@
+# The problem: return a decoded string when given a message where
+# all the letters from a to z (but not A to Z) have been converted
+# to their opposite-side-of-the-alphabet counterparts.
+# 
+# For example, a becomes z, y becomes b, etc.
+#
+# Punctuation and any uppercase letters should be ignored.
+
+def decode(letter):
+    asciiValue = ord(letter)
+    beginingOfAlphabet = 97
+    distanceFromMidPoint = 109 - asciiValue
+    totalDistanceToDecodedLetter = distanceFromMidPoint + 13
+    letterWeWant = chr(beginingOfAlphabet + totalDistanceToDecodedLetter)
+    
+    return letterWeWant
+
+def translate(message):
+    returnString = ""
+    
+    for character in message:
+        if character.isalpha() and character == character.lower():
+            returnString += decode(character)
+        else:
+            returnString += character
+    
+    return returnString
