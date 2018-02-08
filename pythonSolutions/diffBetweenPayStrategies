@@ -1,0 +1,53 @@
+# Given a certain amount to pay all hires, find the difference between the number of people you can hire
+# if you pay each of your employees the most or the least amount possible.
+#
+# 1. You will always have at least one employee, who will be paid one dollar.
+# 2. The next hire up must never be paid more than double their immediate subordinate.
+# 3. The next hire up must never make less than the sum of their two immediate subordinates.
+# 4. You must keep hiring until your next hire's pay matches or exceeds the total money you have left
+#    to pay them
+#
+# Note that, if you have two employees, the second will always be paid either the same as the first
+# (0 + 1) or exactly double the first (2 * 1)
+
+def diffBetweenPayStrategies(total_money):
+    def findStingiestSalariesPerHire(money):
+        nextPayLevel = 1
+        pool = money - 1
+        payPerHire = [1]
+        
+        while nextPayLevel < pool:
+            if len(payPerHire) == 1:
+                nextPayLevel = 1
+            else:
+                nextPay = payPerHire[-1] + payPerHire[-2]
+            
+            if nextPay > pool:
+                break
+            else:
+                pool -= nextPayLevel
+                payPerHire.append(nextPayLevel)
+            
+        return len(payPerHire)
+        
+    def findMostGenerousSalariesPerHire(money):
+        nextPayLevel = 1
+        pool = money - 1
+        payPerHire = [1]
+        
+        while lambPool > nextPayLevel:
+            temp = nextHandout * 2
+            
+            if temp > lpool:
+                temp = (temp - pool) + nextPayLevel
+                
+                if len(nextPayLevel) > 2 and temp > nextPayLevel[-1] + nextPayLevel[-2]:
+                    break
+                
+            nextPayLevel = temp
+            pool -= nextPayLevel
+            nextPayLevel.append(nextPayLevel)
+        
+        return len(nextPayLevel)    
+        
+    return findStingiestSalariesPerHire(total_money) - findMostGenerousSalariesPerHire(total_money)
