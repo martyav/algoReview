@@ -11,7 +11,7 @@
 # (0 + 1) or exactly double the first (2 * 1)
 
 def diffBetweenPayStrategies(total_money):
-    def findStingiestSalariesPerHire(money):
+    def hiresPerStingiestStrategy(money):
         nextPayLevel = 1
         pool = money - 1
         payPerHire = [1]
@@ -30,24 +30,24 @@ def diffBetweenPayStrategies(total_money):
             
         return len(payPerHire)
         
-    def findMostGenerousSalariesPerHire(money):
+    def hiresPerMostGenerousStrategy(money):
         nextPayLevel = 1
         pool = money - 1
         payPerHire = [1]
         
-        while lambPool > nextPayLevel:
-            temp = nextHandout * 2
+        while nextPayLevel < pool:
+            possiblePay = nextPayLevel * 2
             
-            if temp > lpool:
-                temp = (temp - pool) + nextPayLevel
+            if possiblePay > pool:
+                possiblePay = (possiblePay - pool) + nextPayLevel
                 
-                if len(nextPayLevel) > 2 and temp > nextPayLevel[-1] + nextPayLevel[-2]:
+                if len(payPerHire) > 2 and possiblePay > nextPayLevel[-1] + nextPayLevel[-2]:
                     break
                 
-            nextPayLevel = temp
+            nextPayLevel = possiblePay
             pool -= nextPayLevel
-            nextPayLevel.append(nextPayLevel)
+            payPerHire.append(nextPayLevel)
         
-        return len(nextPayLevel)    
+        return len(payPerHire)    
         
-    return findStingiestSalariesPerHire(total_money) - findMostGenerousSalariesPerHire(total_money)
+    return hiresPerStingiestStrategy(total_money) - hiresPerMostGenerousStrategy(total_money)
