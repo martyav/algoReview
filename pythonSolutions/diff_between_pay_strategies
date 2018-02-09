@@ -11,7 +11,7 @@
 # (0 + 1) or exactly double the first (2 * 1)
 
 def diff_between_pay_strategies(total_money):
-  def __hires_per_stingiest_strategy(money):
+  def _hires_per_stingiest_strategy(money):
     next_pay_level = 1
     pool = money - 1
     salaries = [1]
@@ -30,7 +30,7 @@ def diff_between_pay_strategies(total_money):
       
     return len(salaries)
         
-  def __hires_per_most_generous_strategy(money):
+  def _hires_per_most_generous_strategy(money):
     next_pay_level = 1
     pool = money - 1
     salaries = [1]
@@ -50,4 +50,4 @@ def diff_between_pay_strategies(total_money):
         
     return len(salaries)    
         
-  return __hires_per_stingiest_strategy(total_money) - __hires_per_most_generous_strategy(total_money)
+  return _hires_per_stingiest_strategy(total_money) - _hires_per_most_generous_strategy(total_money)
