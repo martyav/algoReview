@@ -10,44 +10,44 @@
 # Note that, if you have two employees, the second will always be paid either the same as the first
 # (0 + 1) or exactly double the first (2 * 1)
 
-def diffBetweenPayStrategies(total_money):
-    def hiresPerStingiestStrategy(money):
+def diff_between_pay_strategies(total_money):
+  def __hires_per_stingiest_strategy(money):
+    nextPayLevel = 1
+    pool = money - 1
+    payPerHire = [1]
+        
+    while nextPayLevel < pool:
+      if len(payPerHire) == 1:
         nextPayLevel = 1
-        pool = money - 1
-        payPerHire = [1]
+      else:
+        nextPayLevel = payPerHire[-1] + payPerHire[-2]
+          
+      if nextPayLevel > pool:
+        break
+      else:
+        pool -= nextPayLevel
+        payPerHire.append(nextPayLevel)
+      
+    return len(payPerHire)
         
-        while nextPayLevel < pool:
-            if len(payPerHire) == 1:
-                nextPayLevel = 1
-            else:
-                nextPay = payPerHire[-1] + payPerHire[-2]
-            
-            if nextPay > pool:
-                break
-            else:
-                pool -= nextPayLevel
-                payPerHire.append(nextPayLevel)
-            
-        return len(payPerHire)
+  def __hires_per_most_generous_strategy(money):
+    nextPayLevel = 1
+    pool = money - 1
+    payPerHire = [1]
         
-    def hiresPerMostGenerousStrategy(money):
-        nextPayLevel = 1
-        pool = money - 1
-        payPerHire = [1]
-        
-        while nextPayLevel < pool:
-            possiblePay = nextPayLevel * 2
+    while nextPayLevel < pool:
+      possiblePay = nextPayLevel * 2
             
-            if possiblePay > pool:
-                possiblePay = (possiblePay - pool) + nextPayLevel
+      if possiblePay > pool:
+        possiblePay = (possiblePay - pool) + nextPayLevel
                 
-                if len(payPerHire) > 2 and possiblePay > nextPayLevel[-1] + nextPayLevel[-2]:
-                    break
+        if len(payPerHire) > 2 and possiblePay > nextPayLevel[-1] + nextPayLevel[-2]:
+          break
                 
-            nextPayLevel = possiblePay
-            pool -= nextPayLevel
-            payPerHire.append(nextPayLevel)
+      nextPayLevel = possiblePay
+      pool -= nextPayLevel
+      payPerHire.append(nextPayLevel)
         
-        return len(payPerHire)    
+    return len(payPerHire)    
         
-    return hiresPerStingiestStrategy(total_money) - hiresPerMostGenerousStrategy(total_money)
+  return __hires_per_stingiest_strategy(total_money) - __hires_per_most_generous_strategy(total_money)
