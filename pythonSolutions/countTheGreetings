@@ -10,7 +10,7 @@
 # greetings), but the < walkers will never greet themselves because they are 
 # following one another at a constant rate. They will never pass each other.
 
-def countTheGreetings(s):
+def count_the_greetings(s):
     count = 0
     limit = len(s)
     
@@ -22,8 +22,8 @@ def countTheGreetings(s):
             if index == 0:
                 continue
             else:
-                for secondaryIndex in range(index):
-                    if s[secondaryIndex] == ">":
+                for secondary_index in range(index):
+                    if s[secondary_index] == ">":
                         count += 2
     
     return count
