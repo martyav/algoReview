@@ -21,7 +21,7 @@ def make_bricks(small, big, goal):
   # check if we have almost the exact amount of small bricks to meet the
   # goal, but we need to take some from the big pile to cover our butts
   
-  elif (goal % 5 <= small and goal/5 <= big) or (goal % small == 5 and big > 0):
+  elif (goal % small == 5 and big > 0):
       return True
   
   # check if we have almost the exact amount of big bricks to meet our goal,
