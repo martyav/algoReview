@@ -12,7 +12,8 @@ make_bricks(3, 2, 10) → True
 '''
 
 def make_bricks(small, big, goal):
-  # check if are able to use only one pile to meet our goal
+  # check if we are able to use only one pile to meet our goal, without 
+  # making up the difference with bricks from another pile
   
   if (goal <= small) or (goal % 5 == 0 and goal/5 <= big): 
     return True
