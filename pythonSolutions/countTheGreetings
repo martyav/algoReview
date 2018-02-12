@@ -1,0 +1,29 @@
+# In a hallway -, people are represented by < and > characters, denoting direction
+# of movement. Count the numbers of times walkers will pass by and individually
+# greet each other, assuming that all walkers walk at the same rate and keep
+# a constant speed.
+#
+# Sample: >-<-<
+#
+# A hallway of - lines, with two < walkers and one > walker. The > will greet
+# the < walkers (1, 2 greetings) and they will greet the > individually (3, 4
+# greetings), but the < walkers will never greet themselves because they are 
+# following one another at a constant rate. They will never pass each other.
+
+def countTheGreetings(s):
+    count = 0
+    limit = len(s)
+    
+    if limit <= 1:
+        return count
+        
+    for index in range(limit):
+        if s[index] == "<":
+            if index == 0:
+                continue
+            else:
+                for secondaryIndex in range(index):
+                    if s[secondaryIndex] == ">":
+                        count += 2
+    
+    return count
