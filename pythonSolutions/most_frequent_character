@@ -1,3 +1,13 @@
+# Frequency tables, frequency hashes, frequency dictaries...
+#
+# Tomayto, tomahto, we're tracking a character alongside how many times it appears in a string.
+#
+# One small optimization is to update the most-frequently-seen character at the same time as
+# we update the dictionary. 
+#
+# Otherwise, we'd have to write a little more code to loop through the dictionary, to see where 
+# the most frequent character is.
+
 def most_frequent_character(string):
   if len(string) == 0:
     return None
