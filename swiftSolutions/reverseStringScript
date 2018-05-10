@@ -5,6 +5,9 @@
 // Note that Swift: 
 // 1) needs to import Foundation to exit() cleanly and 
 // 2) returns a collection of characters, rather than a String object, when .reversed() is called
+//
+// Also note that this is written in Swift 4. Earlier versions of the language lack a count property on String; instead, you call count
+// on the String's .characters property. In addition, Swift 4 renamed String's .reverse() property to .reversed()  
 
 import Foundation
 
