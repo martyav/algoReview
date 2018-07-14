@@ -9,7 +9,7 @@ function findLongestWordLength(str) {
     return strArray.length;
   }
 
-  let maxLength = Number.EPSILON;
+  let maxLength = 0;
   
   for (let word of strArray) {
     let currentLength = word.length;
