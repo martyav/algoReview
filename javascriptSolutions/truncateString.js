@@ -4,18 +4,17 @@
 // Return the truncated string with a ... ending.
 
 function truncateString(str, num) {
+  let rest = "...";
+
   if (num === 0) {
-    return "";
+    return rest;
   }
 
   if (num >= str.length) {
     return str;
   }
 
-  let endIndex = num;
-  let startIndex = 0;
-  let rest = "..."
-  let slice = str.slice(startIndex, endIndex);
+  let slice = str.slice(0, num);
   let returnString = slice + rest;
 
   return returnString;
