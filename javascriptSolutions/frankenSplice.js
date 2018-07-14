@@ -7,7 +7,7 @@
 
 function frankenSplice(arr1, arr2, n) {
   let copyOfArr2 = arr2.slice();
-  copyOfArr2.splice(n, 0, ...arr1.slice); // recall ... spreads out the elements in an array -- if we don't use it, we get an error
+  copyOfArr2.splice(n, 0, ...arr1); // recall ... spreads out the elements in an array -- if we don't use it, we get an error
 
   return copyOfArr2;
 }
