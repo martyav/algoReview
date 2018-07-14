@@ -5,9 +5,5 @@ function repeatStringNumTimes(str, num) {
     return "";
   }
 
-  if (num === 1) {
-    return str;
-  }
-
   return str + repeatStringNumTimes(str, num - 1);
 }
