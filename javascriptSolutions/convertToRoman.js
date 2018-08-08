@@ -9,24 +9,15 @@ function convertToRoman(num) {
   let converted = "";
 
   for (var i = 0; i < decimals.length; i++) {
-
     if (num >= decimals[i]) {
-      converted += addChar(num, decimals[i], romans[i]);
-      num -= decimals[i] * parseInt(num / decimals[i]);
+      let thisMany = parseInt(num / decimals[i]);
+      
+      converted += romans[i].repeat(thisMany);
+      num -= decimals[i] * thisMany;
     }
   }
 
   return converted;
 }
 
-function addChar(num, reducer, char) {
-  let str = "";
-
-  while (num >= reducer) {
-    str += char;
-    num -= reducer;
-  }
-
-  return [str];
-}
 
