@@ -8,14 +8,16 @@ Write a function which takes a ROT13 encoded string as input and returns a decod
 All letters will be uppercase. Do not transform any non-alphabetic character (i.e. spaces, punctuation), but do pass them on.
 */
 
-function rot13(str) {
-    // we could memorize obscure unicode values or... 
+function rot13(str) { // not a general solution, but why bother with obfuscating unicode values?
     let alphabetFront = "ABCDEFGHIJKLM";
     let alphabetBack = "NOPQRSTUVWXYZ";
     let isLetter = /[^\W^\d]/;
 
+    let final = "";
+
     for (var i = 0; i < str.length; i++) {
         let charToAdd = str[i];
+        console.log(charToAdd);
 
         if (isLetter.test(charToAdd)) {
           let index;
@@ -29,8 +31,8 @@ function rot13(str) {
           }
         }
 
-        str = charToAdd;
+        final += charToAdd;
     }
 
-    return str;
+    return final;
 }
