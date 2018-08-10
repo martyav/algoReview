@@ -3,11 +3,6 @@
 const LetterManager = {
   alphabetFront: "ABCDEFGHIJKLMabcdefghijklm",
   alphabetBack: "NOPQRSTUVWXYZnopqrstuvwxyz",
-  tester: /[^\W^\d]/,
-  
-  isLetter: function(char) {
-    return this.tester.test(char); 
-  },
   
   isLocatedInFirstHalf: function(letter) {
     return this.alphabetFront.includes(letter);
@@ -17,24 +12,27 @@ const LetterManager = {
     return this.alphabetBack.includes(letter);
   },
   
-  swapCharIfLetter: function(letter) {
-    let index;
-
-    if (!this.isLetter(letter)) {
-      return letter;
-    }
-
-    if (this.isLocatedInFirstHalf(letter)) {
-      index = this.alphabetFront.indexOf(letter);
+  swapCharIfLetter: function(char) {
+    if (this.isLocatedInFirstHalf(char)) {
+      let index = this.alphabetFront.indexOf(char);
       return this.alphabetBack[index];
-    } else if (this.isLocatedInSecondHalf(letter)) {
-      index = this.alphabetBack.indexOf(letter);
+    } else if (this.isLocatedInSecondHalf(char)) {
+      let index = this.alphabetBack.indexOf(char);
       return this.alphabetFront[index];
     }
+    
+    return char;
   }
 };
 
 function rot13(str) {
-  return str.split("").map(char => LetterManager.swapCharIfLetter(char)).join("");
+  if (typeof str !== "string" || str.length < 1) {
+    return null;
+  }
+
+  let stringArr = str.split("");
+  let swappedArr = stringArr.map(char => LetterManager.swapCharIfLetter(char));
+  
+  return swappedArr.join("");
 }
 
