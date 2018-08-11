@@ -7,20 +7,12 @@
 */
 
 function spinalCase(str) {
-  const changeInCase = /([a-z])(?=[A-Z])/g;
+  const changeInCase = /([a-z])([A-Z])/g;
   const delimiter = /\s|_/g;
 
   let replaceDelimiters = str.replace(delimiter, "-");
-  let detectCaseChanges = replaceDelimiters.replace(changeInCase, "-");
-  let cleanString = ""
+  let detectCaseChanges = replaceDelimiters.replace(changeInCase, '$1-$2');
+  let final = detectCaseChanges.toLowerCase();
 
-  for (let i = 0; i < replaceDelimiters.length; i++) {
-    if (replaceDelimiters[i] !== detectCaseChanges[i]) {
-      cleanString += replaceDelimiters[i].toLowerCase();
-    } 
-
-    cleanString += detectCaseChanges[i].toLowerCase();
-  }
-
-  return cleanString;
+  return final;
 }
