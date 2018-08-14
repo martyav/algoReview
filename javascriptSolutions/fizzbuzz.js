@@ -1,9 +1,7 @@
 // Classic
 
 function fizzbuzz(range) {
-  let vals = Array.from({length: range}, (x, i) => i + 1);
-
-  vals.forEach(function(num) {
+  for (let num = 1; num <= range; num++) {
     let msg = "";
     
     if (num % 3 === 0) {msg = msg.concat("Fizz")};
