@@ -1,4 +1,4 @@
- function rotate(arr, shift) {
+ function leftRotate(arr, shift) {
    const end = arr.length;
    const moveLastIndex = Math.abs((end - shift) % end);
    const frontArr = arr.splice(moveLastIndex);
