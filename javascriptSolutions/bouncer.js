@@ -7,3 +7,9 @@ function bouncer(arr) {
   
   return newArr;
 }
+
+// If we use fat arrow syntax & ignore unused arguments...
+
+function fatBouncer(arr) {
+ return arr.filter(x => x);
+}
