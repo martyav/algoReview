@@ -9,8 +9,6 @@ function removeArticle(text) {
 function sortWithoutArticles(a, b) {
   let compareA = removeArticle(a);
   let compareB = removeArticle(b);
-
-  if (compareA[0] > compareB[0]) return 1;
-  if (compareA[0] === compareB[0]) return 0;
-  if (compareA[0] < compareB[0]) return -1;
+  
+  return (compareA[0] > compareB[0]) ? 1 : (compareA[0] < compareB[0]) ? -1 : 0;
 }
