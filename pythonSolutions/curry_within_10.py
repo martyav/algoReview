@@ -1,3 +1,5 @@
+# Given an int n, return True if it is within 10 of 100 or 200.
+
 def near_hundred(n):
   def within10(a): 
     def near100():
@@ -10,4 +12,4 @@ def near_hundred(n):
     
   return within10(n)
   
-  # Baby's first curry
+# Baby's first currying function
